@@ -1,47 +1,43 @@
-(function(angular) {
+module.exports = function() {
+    'use strict';
+    
+    var el;
 
-    angular
-        .module('app')
-        .directive('pdpgHomePage', pdpgHomePageDirective);
+    return {
+        templateUrl: './app/home/home.html',
+        link: postLink
+    };
 
-    function pdpgHomePageDirective() {
-        var el;
+    function postLink(scope, element) {
+        el = element;
 
-        return {
-            templateUrl: './app/home/home.html',
-            link: postLink
-        };
-
-        function postLink(scope, element) {
-            el = element;
-
-            $('input:first', el).on('change', handleFiles);
-        }
-
-        function handleFiles() {
-            var files = this.files;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var imageType = /^image\//;
-
-                if (!imageType.test(file.type)) {
-                    continue;
-                }
-
-                var img = document.createElement("img");
-                img.classList.add("obj");
-                img.file = file;
-                $('.thumbnail').empty().append(img);
-
-                var reader = new FileReader();
-                reader.onload = (function(aImg) {
-                    return function(e) {
-                        aImg.src = e.target.result;
-                    };
-                })(img);
-                reader.readAsDataURL(file);
-            }
-        }
+        $('input:first', el).on('change', handleFiles);
     }
 
-})(window.angular);
+    function handleFiles() {
+        var files = this.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /^image\//;
+
+            if (!imageType.test(file.type)) {
+                continue;
+            }
+
+            var img = document.createElement("img");
+            img.classList.add("obj");
+            img.file = file;
+            $('.thumbnail', el)
+                .empty()
+                .append(img);
+
+            var reader = new FileReader();
+            reader.onload = (function(aImg) {
+                return function(e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        }
+    }
+};

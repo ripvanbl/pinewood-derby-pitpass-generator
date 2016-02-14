@@ -7,6 +7,12 @@
   "repository": "",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
     "express": "~3.2.4"
+  },
+  "devDependencies": {
+    "ng-annotate-loader": "^0.1.0",
+    "webpack": "^1.12.13"
   }
 }
