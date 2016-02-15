@@ -1,6 +1,7 @@
 var angular = require("angular");
 var uirouter = require("angular-ui-router");
 var routing = require("./app.config");
+var setup = require("./app.run");
 
 var appService = require("./app.service");
 var homeDirective = require("./home/home.directive");
@@ -11,6 +12,7 @@ var themePickerDirective = require("./theme-picker/theme-picker.directive");
 
 angular.module('app', [uirouter])
   .config(routing)
+  .run(setup)
   .factory('pdpgService', appService)
   .directive('pdpgHomePage', homeDirective)
   .directive('pdpgImg', imgDirective)

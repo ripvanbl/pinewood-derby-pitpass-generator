@@ -54,16 +54,18 @@
 	var angular = __webpack_require__(2);
 	var uirouter = __webpack_require__(4);
 	var routing = __webpack_require__(5);
+	var setup = __webpack_require__(6);
 
-	var appService = __webpack_require__(6);
-	var homeDirective = __webpack_require__(7);
-	var imgDirective = __webpack_require__(8);
-	var themeDirective = __webpack_require__(9);
-	var imgPickerDirective = __webpack_require__(10);
-	var themePickerDirective = __webpack_require__(11);
+	var appService = __webpack_require__(7);
+	var homeDirective = __webpack_require__(8);
+	var imgDirective = __webpack_require__(9);
+	var themeDirective = __webpack_require__(10);
+	var imgPickerDirective = __webpack_require__(11);
+	var themePickerDirective = __webpack_require__(12);
 
 	angular.module('app', [uirouter])
 	  .config(routing)
+	  .run(setup)
 	  .factory('pdpgService', appService)
 	  .directive('pdpgHomePage', homeDirective)
 	  .directive('pdpgImg', imgDirective)
@@ -35082,6 +35084,22 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	/*@ngInject*/
+	module.exports = function($rootScope, $window) {
+	    $rootScope.$on('$stateChangeStart', onStateChangeStart);
+
+	    /////////
+	    
+	    function onStateChangeStart() {
+	        $window.scrollTo(0, 0);
+	    }
+	};
+	module.exports.$inject = ["$rootScope", "$window"];
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var angular = __webpack_require__(2);
@@ -35132,7 +35150,7 @@
 	module.exports.$inject = ["$q"];
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/*@ngInject*/
@@ -35145,7 +35163,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	/*@ngInject*/
@@ -35180,7 +35198,7 @@
 	module.exports.$inject = ["pdpgService"];
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/*@ngInject*/
@@ -35194,7 +35212,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	/*@ngInject*/
@@ -35237,7 +35255,7 @@
 	module.exports.$inject = ["$log", "pdpgService"];
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/*@ngInject*/
