@@ -55,11 +55,21 @@
 	var uirouter = __webpack_require__(4);
 	var routing = __webpack_require__(5);
 
-	var homeDirective = __webpack_require__(6);
+	var appService = __webpack_require__(6);
+	var homeDirective = __webpack_require__(7);
+	var imgDirective = __webpack_require__(8);
+	var themeDirective = __webpack_require__(9);
+	var imgPickerDirective = __webpack_require__(10);
+	var themePickerDirective = __webpack_require__(11);
 
 	angular.module('app', [uirouter])
 	  .config(routing)
-	  .directive('pdpgHomePage', homeDirective);
+	  .factory('pdpgService', appService)
+	  .directive('pdpgHomePage', homeDirective)
+	  .directive('pdpgImg', imgDirective)
+	  .directive('pdpgTheme', themeDirective)
+	  .directive('pdpgImgPicker', imgPickerDirective)
+	  .directive('pdpgThemePicker', themePickerDirective);
 
 
 /***/ },
@@ -35058,56 +35068,186 @@
 	        .state('home', {
 	            url: '/',
 	            template: '<div data-pdpg-home-page></div>'
+	        })
+	        .state('img', {
+	            url: '/img',
+	            template: '<div data-pdpg-img-picker></div>'
+	        })
+	        .state('theme', {
+	            url: '/theme',
+	            template: '<div data-pdpg-theme-picker></div>'
 	        });
 	};
 	module.exports.$inject = ["$stateProvider", "$urlRouterProvider"];
 
 /***/ },
 /* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var angular = __webpack_require__(2);
+
+	/*@ngInject*/
+	module.exports = function($q) {
+	    'use strict';
+
+	    var _img;
+	    var svc = {
+	        get image() {
+	            return _img;
+	        },
+	        setImage: setImage
+	    };
+
+	    return svc;
+
+	    //////////
+
+	    function setImage(file) {
+	        var imageType = /^image\//,
+	            reader,
+	            defer = $q.defer();
+
+	        if (!file || !file.type) return $q.reject('No file');
+	        if (!imageType.test(file.type)) return $q.reject('Not an image');
+
+	        if (!_img) {
+	            _img = document.createElement("img");
+	        }
+
+	        _img.file = file;
+
+	        reader = new FileReader();
+	        reader.onload = (function(img) {
+	            return function(e) {
+	                img.src = e.target.result;
+	                defer.resolve();
+	            };
+	        })(_img);
+
+	        reader.readAsDataURL(file);
+	        
+	        return defer.promise;
+	    }
+	};
+	module.exports.$inject = ["$q"];
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
+	/*@ngInject*/
 	module.exports = function() {
 	    'use strict';
 	    
-	    var el;
+	    return {
+	        templateUrl: './app/home/home.html'
+	    };
+	};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	/*@ngInject*/
+	module.exports = function(pdpgService) {
+	    'use strict';
 
 	    return {
-	        templateUrl: './app/home/home.html',
+	        replace: true,
+	        templateUrl: './app/img/img.html',
+	        link: postLink
+	    };
+
+	    //////////
+
+	    function postLink(scope, element) {
+	        scope.svc = pdpgService;
+
+	        // /////
+	        
+	        // function setImage() {
+	        //     $('.thumbnail', element)
+	        //         .empty()
+	        //         .append(pdpgService.image);
+	        // }
+	        
+	        // function watchImage() {
+	        //     return pdpgService.image;
+	        // }
+	    }
+
+	};
+	module.exports.$inject = ["pdpgService"];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	/*@ngInject*/
+	module.exports = function() {
+	    'use strict';
+	    
+	    return {
+	        templateUrl: './app/theme/theme.html'
+	    };
+	    
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	/*@ngInject*/
+	module.exports = function($log, pdpgService) {
+	    'use strict';
+
+	    return {
+	        templateUrl: './app/img-picker/img-picker.html',
 	        link: postLink
 	    };
 
 	    function postLink(scope, element) {
-	        el = element;
+	        scope.hasImg = hasImage();
 
-	        $('input:first', el).on('change', handleFiles);
-	    }
+	        $('input:first', element).on('change', handleFile);
 
-	    function handleFiles() {
-	        var files = this.files;
-	        for (var i = 0; i < files.length; i++) {
-	            var file = files[i];
-	            var imageType = /^image\//;
+	        /////
 
-	            if (!imageType.test(file.type)) {
-	                continue;
-	            }
+	        function handleFile() {
+	            var files = this.files;
 
-	            var img = document.createElement("img");
-	            img.classList.add("obj");
-	            img.file = file;
-	            $('.thumbnail', el)
-	                .empty()
-	                .append(img);
+	            if (!files || !files.length) return;
 
-	            var reader = new FileReader();
-	            reader.onload = (function(aImg) {
-	                return function(e) {
-	                    aImg.src = e.target.result;
-	                };
-	            })(img);
-	            reader.readAsDataURL(file);
+	            pdpgService.setImage(files[0])
+	                .catch(function(err) {
+	                    $log.warn(err);
+	                })
+	                .finally(function(){
+	                    scope.hasImg = hasImage();
+	                });
+	        }
+	        
+	        function hasImage() {
+	            return pdpgService.image && pdpgService.image.src ? true : false;
 	        }
 	    }
+
+
+	};
+	module.exports.$inject = ["$log", "pdpgService"];
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	/*@ngInject*/
+	module.exports = function() {
+	    'use strict';
+	    
+	    return {
+	        templateUrl: './app/theme-picker/theme-picker.html'
+	    };
+	    
 	};
 
 /***/ }

@@ -1,0 +1,19 @@
+<div class="img-picker">
+    <div class="page-header">
+        <h1>Step 1</h1>
+    </div>
+
+    <div class="well">
+        <p>
+            <span class="glyphicon glyphicon-camera"></span> Take or choose a picture of your Scout...
+        </p>
+
+        <input type="file" accept="image/*" capture="camera" />
+    </div>
+
+    <div data-pdpg-img></div>
+
+    <div class="btn-group pull-right" role="group" data-ng-show="hasImg">
+        <a class="btn btn-primary" ui-sref="theme" role="button">Next</a>
+    </div>
+</div>

@@ -3,6 +3,7 @@ module.exports = function() {
     'use strict';
     
     return {
-        templateUrl: './app/home/home.html'
+        templateUrl: './app/theme/theme.html'
     };
+    
 };
