@@ -2,11 +2,11 @@
   "name": "pinewood-derby-pitpass-generator",
   "version": "0.0.0",
   "private": true,
-  "description": "A pitpass generator for Boy/Cub Scout Pinewood Derby.",
+  "description": "A pitpass generator for Cub Scout Pinewood Derby.",
   "main": "server.js",
-  "repository": "",
+  "repository": "https://github.com/ripvanbl/pinewood-derby-pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "dependencies": {
-    "express": "~3.2.4"
+    "express": "4.15.2"
   }
 }
