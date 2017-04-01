@@ -2,9 +2,9 @@ var http = require('http'),
     express = require('express'),
     path = require('path'),
     app = express(),
-    apiServer = require('./api/server.js'),
-    port = process.env.PORT,
-    host = process.env.IP,
+    apiServer = require('./api/index.js'),
+    port = process.env.PORT || 4100,
+    host = process.env.IP || '127.0.0.1',
     publicFolderPath;
 
 http.createServer(app).listen(port, host);
