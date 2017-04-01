@@ -7,6 +7,7 @@
   "repository": "https://github.com/ripvanbl/pinewood-derby-pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "dependencies": {
+    "body-parser": "1.17.1",
     "express": "4.15.2"
   }
 }
