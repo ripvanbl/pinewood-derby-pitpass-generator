@@ -1,0 +1,10 @@
+<md-progress-spinner mode="indeterminate" *ngIf="isProcessing">
+</md-progress-spinner>
+<md-card *ngIf="!isProcessing">
+  <md-card-header>
+    <input type="file" (change)="fileChange(input)" #input />  
+  </md-card-header>
+  
+
+  <img [src]="preview" />
+</md-card>
