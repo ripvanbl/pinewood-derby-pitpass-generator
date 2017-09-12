@@ -7,9 +7,27 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+  <style type="text/css">
+    body { 
+      background-color:#e9e9e9;
+      font-family: Roboto;
+    }
+    .app-loading { 
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <app-root>
+    <div class="app-loading">
+      <h1>Loading the pitpass generator...</h1>
+      <div>
+        <i class="fa fa-cog fa-spin fa-5x fa-fw"></i>
+        <span class="sr-only">Loading the pitpass generator...</span>
+      </div>
+    </div>
+  </app-root>
 </body>
 </html>
