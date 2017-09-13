@@ -8,3 +8,6 @@ http://code.flickr.net/2012/06/01/parsing-exif-client-side-using-javascript-2/
 https://viljamis.com/2012/file-upload-support-on-mobile/
 https://developer.mozilla.org/en-US/docs/Web/API/FileReader
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+# Auth Reference Material
+https://coursetro.com/posts/code/54/Angular-4-Firebase-Tutorial:-Make-a-Simple-Angular-4-App
