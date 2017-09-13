@@ -1,2 +1,7 @@
-<md-toolbar>{{title}}</md-toolbar>
+<md-toolbar>
+    {{title}}
+    <span class="fill-remaining-space"></span>
+    <button md-button type="button" (click)="login()" *ngIf="!(user | async)?.uid">LOGIN</button>
+    <button md-button type="button" (click)="logout()" *ngIf="(user | async)?.uid">LOGOUT</button>
+</md-toolbar>
 <app-info></app-info>

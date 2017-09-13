@@ -1,6 +1,5 @@
 <md-card>
   <md-card-header>
-    
     <md-card-title>Scout Information</md-card-title>
   </md-card-header>
   <md-card-content>
@@ -24,7 +23,7 @@
       <app-photo (onPhotoProcessing)="onPhotoProcessing()" (onPhotoProcessed)="onPhotoProcessed()"></app-photo>
     </form>
   </md-card-content>
-  <md-card-actions>
+  <md-card-actions *ngIf="(user | async)?.uid">
     <button md-button type="submit" [disabled]="isProcessing">SAVE</button>
     <button md-button [disabled]="isProcessing">RESET</button>
   </md-card-actions>
