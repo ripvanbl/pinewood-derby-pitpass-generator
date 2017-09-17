@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { MdButtonModule, MdCardModule, MdInputModule, MdSelectModule } from '@angular/material';
 
 import { Scout, ranks } from '../scout/scout.model';
 import { ScoutService } from '../scout/scout.service';
