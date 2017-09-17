@@ -10,4 +10,5 @@ https://developer.mozilla.org/en-US/docs/Web/API/FileReader
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
 # Auth Reference Material
+https://firebase.google.com/docs/reference/js/
 https://coursetro.com/posts/code/54/Angular-4-Firebase-Tutorial:-Make-a-Simple-Angular-4-App

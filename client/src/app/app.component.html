@@ -3,5 +3,6 @@
     <span class="fill-remaining-space"></span>
     <button md-button type="button" (click)="login()" *ngIf="!(user | async)?.uid">LOGIN</button>
     <button md-button type="button" (click)="logout()" *ngIf="(user | async)?.uid">LOGOUT</button>
+    <span *ngIf="(user | async)?.uid">{{user.displayName}}</span>
 </md-toolbar>
 <app-info></app-info>

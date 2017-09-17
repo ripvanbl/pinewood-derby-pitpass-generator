@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Output, ViewChild, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import $ from 'jquery/dist/jquery';
+import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
 
 @Component({
   selector: 'app-photo',
