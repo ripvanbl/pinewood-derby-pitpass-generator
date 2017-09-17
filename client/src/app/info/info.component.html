@@ -1,31 +1,30 @@
 <md-card>
   <md-card-header>
-    
-    <md-card-title>Scout Information</md-card-title>
+    <md-card-title>Racer Information</md-card-title>
   </md-card-header>
   <md-card-content>
-    <form [formGroup]="scoutForm" novalidate >
-      <md-input-container>
+    <form [formGroup]="racerForm" novalidate >
+      <md-form-field>
         <input mdInput placeholder="First name" name="firstname" formControlName="firstname">
-      </md-input-container>
+      </md-form-field>
 
-      <md-input-container>
+      <md-form-field>
         <input mdInput placeholder="Last Name" name="lastname" formControlName="lastname">
-      </md-input-container>
+      </md-form-field>
+      
+      <md-form-field>
+        <input mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
+      </md-form-field>
 
       <md-select placeholder="Rank" formControlName="rank">
           <md-option *ngFor="let rank of ranks" [value]="rank">{{rank}}</md-option>
       </md-select>
       
-      <md-input-container>
-        <input mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
-      </md-input-container>
-
-      <app-photo (onPhotoProcessing)="onPhotoProcessing()" (onPhotoProcessed)="onPhotoProcessed()"></app-photo>
+      <app-photo (onPhotoProcessing)="onPhotoProcessing()" (onPhotoProcessed)="onPhotoProcessed(dataUrl)" [profilePhotoDataURL]="racer.profilePhotoDataURL"></app-photo>
     </form>
   </md-card-content>
   <md-card-actions>
     <button md-button type="submit" [disabled]="isProcessing">SAVE</button>
-    <button md-button [disabled]="isProcessing">RESET</button>
+    <button md-button [disabled]="isProcessing" (click)="resetForm()">RESET</button>
   </md-card-actions>
 </md-card>

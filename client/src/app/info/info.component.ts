@@ -1,37 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Scout, ranks } from '../scout/scout.model';
-import { ScoutService } from '../scout/scout.service';
+import { Racer, ranks } from '../scout/scout.model';
+import { RacerService } from '../scout/scout.service';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.css'],
-  providers: [ScoutService]
+  providers: [RacerService]
 })
 export class InfoComponent implements OnInit {
-  scout: Scout;
-  scoutForm: FormGroup;
+  racer: Racer;
+  racerForm: FormGroup;
   isProcessing: boolean;
   ranks = ranks;
 
   constructor(
-    private scoutService: ScoutService, 
+    private racerService: RacerService, 
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.scout = this.scoutService.fetch();
+    this.racer = this.racerService.fetch();
     this.createForm();
   }
 
   createForm() {
-    this.scoutForm = this.formBuilder.group({
-      firstname: [this.scout.firstname, Validators.required],
-      lastname: [this.scout.lastname, Validators.required],
-      rank: [this.scout.rank, Validators.required],
-      carname: ''
+    this.racerForm = this.formBuilder.group({
+      firstname: [this.racer.firstname, Validators.required],
+      lastname: [this.racer.lastname, Validators.required],
+      rank: [this.racer.rank, Validators.required],
+      carname: [this.racer.carname, Validators.required]
     });
   }
 
@@ -39,8 +39,14 @@ export class InfoComponent implements OnInit {
     this.isProcessing = true;
   }
 
-  onPhotoProcessed() {
+  onPhotoProcessed(dataUrl) {
     this.isProcessing = false;
+    this.racer.profilePhotoDataURL = dataUrl;
+  }
+  
+  resetForm() {
+    this.racer = this.racerService.reset();
+    this.racerForm.reset();
   }
 
 }

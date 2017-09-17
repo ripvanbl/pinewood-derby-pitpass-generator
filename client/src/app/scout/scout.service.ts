@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { Scout } from './scout.model';
+import { Racer } from './scout.model';
 
 @Injectable()
-export class ScoutService {
-  scout: Scout;
+export class RacerService {
+  racer: Racer;
 
   constructor() {
-    this.scout = new Scout();
+    this.racer = new Racer();
   }
 
-  fetch(): Scout {
-    return this.scout;
+  fetch(): Racer {
+    return this.racer;
+  }
+  
+  reset(): Racer {
+    this.racer.reset();
+    return this.racer;
   }
 }
