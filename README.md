@@ -1,6 +1,19 @@
-## Pitpass Generator
+# Pitpass Generator
 
-A simple test application to allow users to create their own pitpasses for Pinewood Derby.
+A simple test application for creating a generic pit pass which can be used for something like Pinewood Derby.
+
+## How to build and run
+- Download to a location which has at least node v6.9.5
+- Execute
+```javascript
+npm install
+npm run build
+```
+- Start
+```javascript
+npm start
+```
+- Navigate to http://localhost:8080
 
 ### Photo Resize Reference Material
 https://tympanus.net/codrops/2014/10/30/resizing-cropping-images-canvas/

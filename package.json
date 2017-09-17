@@ -8,6 +8,7 @@
   "repository": "https://github.com/ripvanbl/pinewood-derby-pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
+    "build": "(cd ./client && npm i && npm run build)"
     "start": "node ./server/server.js"
   },
   "dependencies": {
