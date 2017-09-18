@@ -8,7 +8,7 @@
   "repository": "https://github.com/ripvanbl/pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
-    "build": "(cd ./client && npm i && npm run build)",
+    "build": "(cd ./client && npm i && npm run build) && rm -rf ./server/public/dist && mkdir -p ./server/public/dist && cp ./client/dist/* ./server/public/dist",
     "start": "node ./server/server.js"
   },
   "dependencies": {
