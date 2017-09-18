@@ -18,6 +18,11 @@
     "express": "4.15.2",
     "typescript": "2.5.2"
   },
+  "devDependencies": {
+    "@angular/cli": "1.4.2",
+    "@angular/compiler-cli": "4.4.1",
+    "typescript": "2.5.2"
+  },
   "engines": {
     "node": "6.9.5"
   }
