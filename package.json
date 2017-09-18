@@ -8,10 +8,12 @@
   "repository": "https://github.com/ripvanbl/pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
-    "build": "(cd ./client && npm i && npm run build) && rm -rf ./server/public/dist && mkdir -p ./server/public/dist && cp ./client/dist/* ./server/public/dist",
-    "start": "node ./server/server.js"
+    "start": "node ./server/server.js",
+    "postinstall": "(cd ./client && npm i && npm run build --aot -prod) && rm -rf ./server/public/dist && mkdir -p ./server/public/dist && cp ./client/dist/* ./server/public/dist"
   },
   "dependencies": {
+    "@angular/cli": "1.4.2",
+    "@angular/compiler-cli": "4.4.1",
     "body-parser": "1.17.1",
     "express": "4.15.2"
   },
