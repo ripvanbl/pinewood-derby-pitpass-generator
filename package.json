@@ -9,13 +9,14 @@
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
     "start": "node ./server/server.js",
-    "postinstall": "(cd ./client && npm i && npm run build --aot -prod) && rm -rf ./server/public/dist && mkdir -p ./server/public/dist && cp ./client/dist/* ./server/public/dist"
+    "postinstall": "(cd ./client && npm i && npm run build_prod)"
   },
   "dependencies": {
     "@angular/cli": "1.4.2",
     "@angular/compiler-cli": "4.4.1",
     "body-parser": "1.17.1",
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "typescript": "2.5.2"
   },
   "engines": {
     "node": "6.9.5"
