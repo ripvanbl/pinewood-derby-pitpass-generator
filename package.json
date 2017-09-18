@@ -1,11 +1,11 @@
 {
-  "name": "pinewood-derby-pitpass-generator",
+  "name": "pitpass-generator",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
-  "description": "A pitpass generator for Cub Scout Pinewood Derby.",
+  "description": "A simple test application for creating a generic pit pass which can be used for something like Pinewood Derby.",
   "main": "server.js",
-  "repository": "https://github.com/ripvanbl/pinewood-derby-pitpass-generator",
+  "repository": "https://github.com/ripvanbl/pitpass-generator",
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
     "build": "(cd ./client && npm i && npm run build)",
@@ -14,5 +14,8 @@
   "dependencies": {
     "body-parser": "1.17.1",
     "express": "4.15.2"
+  },
+  "engines": {
+    "node": "6.9.5"
   }
 }
