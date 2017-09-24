@@ -18,12 +18,12 @@ import { RacerService } from './racer/racer.service';
 import { AppRoutingModule } from './app-routing.module';
 
 export const firebaseConfig = {
-    apiKey: "",
+    apiKey: "AIzaSyBSd4lMjgFlqMGZQre1jkVXp51tGHyFCw0",
     authDomain: "pinewood-derby-pitpass-gen.firebaseapp.com",
     databaseURL: "https://pinewood-derby-pitpass-gen.firebaseio.com",
     projectId: "pinewood-derby-pitpass-gen",
     storageBucket: "",
-    messagingSenderId: ""
+    messagingSenderId: "908496029912"
   };
 
 @NgModule({
