@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Racer } from './scout.model';
+import { Racer } from './racer.model';
 
 @Injectable()
 export class RacerService {

@@ -24,7 +24,7 @@
     </form>
   </md-card-content>
   <md-card-actions>
-    <button md-button type="submit" [disabled]="isProcessing">SAVE</button>
     <button md-button [disabled]="isProcessing" (click)="resetForm()">RESET</button>
+    <button md-button type="submit" [disabled]="isProcessing">NEXT</button>
   </md-card-actions>
 </md-card>

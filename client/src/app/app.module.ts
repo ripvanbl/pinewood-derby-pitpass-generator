@@ -12,12 +12,12 @@ import { InfoComponent } from './info/info.component';
 import { PhotoComponent } from './photo/photo.component';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyBSd4lMjgFlqMGZQre1jkVXp51tGHyFCw0",
+    apiKey: "",
     authDomain: "pinewood-derby-pitpass-gen.firebaseapp.com",
     databaseURL: "https://pinewood-derby-pitpass-gen.firebaseio.com",
     projectId: "pinewood-derby-pitpass-gen",
     storageBucket: "",
-    messagingSenderId: "908496029912"
+    messagingSenderId: ""
   };
 
 @NgModule({
