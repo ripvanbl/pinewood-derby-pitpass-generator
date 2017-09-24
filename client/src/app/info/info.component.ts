@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Racer, ranks } from '../scout/scout.model';
-import { RacerService } from '../scout/scout.service';
+import { Racer, ranks } from '../racer/racer.model';
+import { RacerService } from '../racer/racer.service';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.css'],
-  providers: [RacerService]
+  styleUrls: ['./info.component.css']
 })
 export class InfoComponent implements OnInit {
   racer: Racer;

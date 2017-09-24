@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 import { MdToolbarModule, MdInputModule, MdButtonModule, MdCardModule, MdProgressSpinnerModule, MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -10,6 +11,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { InfoComponent } from './info/info.component';
 import { PhotoComponent } from './photo/photo.component';
+import { IntroComponent } from './intro/intro.component';
+
+import { RacerService } from './racer/racer.service';
+
+import { AppRoutingModule } from './app-routing.module';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBSd4lMjgFlqMGZQre1jkVXp51tGHyFCw0",
@@ -24,7 +30,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     InfoComponent,
-    PhotoComponent
+    PhotoComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +46,12 @@ export const firebaseConfig = {
     MdInputModule,
     MdProgressSpinnerModule,
     MdSelectModule,
-    MdToolbarModule
+    MdToolbarModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    RacerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

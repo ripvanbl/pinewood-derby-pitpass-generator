@@ -5,4 +5,4 @@
     <button md-button type="button" (click)="logout()" *ngIf="(user | async)?.uid">LOGOUT</button>
     <img class="profile-picture" *ngIf="(user | async)?.uid" [src]="(user | async)?.photoURL" [alt]="(user | async)?.displayName" [title]="(user | async)?.displayName" />
 </md-toolbar>
-<app-info></app-info>
+<router-outlet></router-outlet>
