@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { User } from './auth/user.model';
 import { AuthService } from './auth/auth.service';
 
@@ -9,13 +9,23 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  private userSubscription: Subscription;
+  
   title = 'Pitpass Generator';
-  user: Observable<User>;
+  user: User;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private changeDetectorRef: ChangeDetectorRef) {}
   
   ngOnInit() {
-    this.user = this.authService.user;
+    this.userSubscription = this.authService.user.subscribe(value => {
+      this.user = value;
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+  
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.userSubscription.unsubscribe();
   }
   
   login() {
@@ -23,6 +33,6 @@ export class AppComponent {
   }
   
   logout() {
-      this.authService.logout();
+    this.authService.logout();
   }
 }

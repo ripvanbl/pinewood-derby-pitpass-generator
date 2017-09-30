@@ -5,7 +5,5 @@
     <button md-button type="button" (click)="logout()" *ngIf="(user)?.uid">LOGOUT</button>
     <img class="profile-picture" *ngIf="(user)?.uid" [src]="(user)?.photoURL" [alt]="(user)?.displayName" [title]="(user)?.displayName" />
 </md-toolbar>
-<div>
-    <pre>{{user | json}}</pre>
-</div>
+
 <router-outlet></router-outlet>
