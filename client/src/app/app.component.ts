@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { User } from './auth/user.model';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +10,19 @@ import * as firebase from 'firebase/app';
 })
 export class AppComponent {
   title = 'Pitpass Generator';
-  user: Observable<firebase.User>;
+  user: Observable<User>;
 
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(public authService: AuthService) {}
   
   ngOnInit() {
-    this.user = this.afAuth.authState;
+    this.user = this.authService.user;
   }
   
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    this.authService.login();
   }
   
   logout() {
-      this.afAuth.auth.signOut();
+      this.authService.logout();
   }
 }

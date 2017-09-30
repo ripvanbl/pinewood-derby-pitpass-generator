@@ -13,6 +13,7 @@ import { InfoComponent } from './info/info.component';
 import { PhotoComponent } from './photo/photo.component';
 import { IntroComponent } from './intro/intro.component';
 
+import { AuthService } from './auth/auth.service';
 import { RacerService } from './racer/racer.service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +51,7 @@ export const firebaseConfig = {
     AppRoutingModule
   ],
   providers: [
+    AuthService,
     RacerService
   ],
   bootstrap: [AppComponent]
