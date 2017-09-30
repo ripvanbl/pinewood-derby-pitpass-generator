@@ -1,35 +1,45 @@
 import { Injectable } from '@angular/core';
-import { User } from './user.model';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
+import { User } from './user.model';
+import { StorageService } from '../storage/storage.service';
+
 @Injectable()
 export class AuthService {
-  isLoggedIn = false;
-  redirectUrl: string;
-  user: Subject<User>;
+  private USER_KEY = 'user';
+  
+  user: BehaviorSubject<User>;
 
-  constructor(public afAuth: AngularFireAuth) {
-    this.user = new Subject<User>();
+  constructor(private afAuth: AngularFireAuth, private storage: StorageService) {
+    this.user = new BehaviorSubject<User>(null);
+    
+    let usr = this.storage.getItem(this.USER_KEY);
+    
+    if(usr) {
+      this.user.next(usr);
+    }
   }
 
   login(): void {
     this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then((result) => { 
-            this.isLoggedIn = true;
-            this.user.next(new User(result.user));
+        .then((result) => {
+          let usr = new User(result.user);
+          this.storage.setItem(this.USER_KEY, usr);
+          this.user.next(usr);
         })
         .catch((err) => { 
-            console.log('LOGIN:', err);
-            this.user.next(new User());
-            this.isLoggedIn = false;
+          console.log('LOGIN:', err);
+          this.storage.removeItem(this.USER_KEY);
+          this.user.next(null);
         });
   }
 
   logout(): void {
     this.afAuth.auth.signOut();
-    this.isLoggedIn = false;
+    this.storage.clear();
+    this.user.next(null);
   }
 }

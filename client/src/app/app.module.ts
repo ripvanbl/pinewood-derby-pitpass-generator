@@ -15,6 +15,7 @@ import { IntroComponent } from './intro/intro.component';
 
 import { AuthService } from './auth/auth.service';
 import { RacerService } from './racer/racer.service';
+import { StorageService } from './storage/storage.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -52,7 +53,8 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthService,
-    RacerService
+    RacerService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })
