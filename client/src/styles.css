@@ -1,18 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
+html, body { min-height: 100%; }
 body {
-  background-color:#e9e9e9;
+  background-color: #F7F7F7;
+  background-image: linear-gradient( #003F87, #F7F7F7 50%);
   font-family: Roboto;
   margin: 0;
   padding: 0;
 }
 
+app-root { display:block; margin:0px auto; max-width: 632px; }
 app-info { margin: 20px 0 20px 0; }
 .fill-remaining-space { flex: 1 1 auto; }
 form { display:block; padding: 0 0 0 8px; }
-.mat-card { max-width:632px; margin: 2px auto; }
+.mat-card { margin: 2px auto; }
 .mat-card-title { font-size: 24px !important; }
 .mat-form-field { display:block; margin: 20px auto; width:100%; }
 .mat-select { display: block; margin: 20px auto; width:100%; }
