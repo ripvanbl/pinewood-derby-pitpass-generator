@@ -32,7 +32,11 @@ export class AppComponent {
   }
   
   login() {
-    this.authService.login();
+    this.authService
+      .login()
+      .then(() => {
+        this.changeDetectorRef.detectChanges();
+      });
   }
   
   logout() {
