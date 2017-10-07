@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from './auth/user.model';
 import { AuthService } from './auth/auth.service';
@@ -14,7 +15,9 @@ export class AppComponent {
   title = 'Pitpass Generator';
   user: User;
 
-  constructor(public authService: AuthService, private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(public authService: AuthService, 
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router) {}
   
   ngOnInit() {
     this.userSubscription = this.authService.user.subscribe(value => {
@@ -33,6 +36,10 @@ export class AppComponent {
   }
   
   logout() {
-    this.authService.logout();
+    this.authService
+      .logout()
+      .then(() => {
+        this.router.navigate(['/']);
+      });
   }
 }

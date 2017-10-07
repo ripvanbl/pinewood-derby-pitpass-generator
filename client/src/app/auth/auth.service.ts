@@ -51,8 +51,9 @@ export class AuthService implements OnDestroy {
         });
   }
 
-  logout(): void {
-    this.afAuth.auth
+  logout(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth
       .signOut()
       .catch((err) => {
         console.log('LOGIN:', err);
@@ -60,7 +61,9 @@ export class AuthService implements OnDestroy {
       .then(() => {
         this.storage.removeItem(this.USER_KEY);
         this.user.next(null);
+        resolve();
       });
+    });
   }
 
   _setLoggedIn(usr): void {
