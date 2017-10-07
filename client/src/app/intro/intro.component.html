@@ -6,6 +6,6 @@
     <p>Use this simple three step process to generate your own pitpass.</p>
   </md-card-content>
   <md-card-actions>
-    <a md-button routerLink="/info">NEXT</a>
+    <a md-button routerLink="/info" *ngIf="(user|async)?.uid">NEXT</a>
   </md-card-actions>
 </md-card>
