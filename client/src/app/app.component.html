@@ -1,9 +1,11 @@
+<md-menu #profileMenu="mdMenu">
+  <button md-menu-item (click)="logout()">Logout</button>
+</md-menu>
 <md-toolbar>
     {{title}}
     <span class="fill-remaining-space"></span>
     <button md-button type="button" (click)="login()" *ngIf="!(user)?.uid">LOGIN</button>
-    <button md-button type="button" (click)="logout()" *ngIf="(user)?.uid">LOGOUT</button>
-    <img class="profile-picture" *ngIf="(user)?.uid" [src]="(user)?.photoURL" [alt]="(user)?.displayName" [title]="(user)?.displayName" />
+    <img class="profile-picture" [mdMenuTriggerFor]="profileMenu" *ngIf="(user)?.uid" [src]="(user)?.photoURL" [alt]="(user)?.displayName" [title]="(user)?.displayName" />
 </md-toolbar>
 
 <router-outlet></router-outlet>

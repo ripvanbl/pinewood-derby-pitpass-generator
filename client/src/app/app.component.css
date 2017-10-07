@@ -1,1 +1,1 @@
-.profile-picture {border-radius: 32px; vertical-align: middle; width:32px;}
+.profile-picture {border: 1px solid #bbbbbb; border-radius: 6px; cursor: pointer; vertical-align: middle; width:32px;}

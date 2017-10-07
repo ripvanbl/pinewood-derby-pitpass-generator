@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdToolbarModule, MdInputModule, MdButtonModule, MdCardModule, MdProgressSpinnerModule, MdSelectModule } from '@angular/material';
+import { MdMenuModule, MdToolbarModule, MdInputModule, MdButtonModule, MdCardModule, MdProgressSpinnerModule, MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -47,6 +47,7 @@ export const firebaseConfig = {
     MdButtonModule,
     MdCardModule,
     MdInputModule,
+    MdMenuModule,
     MdProgressSpinnerModule,
     MdSelectModule,
     MdToolbarModule,
