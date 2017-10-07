@@ -3,8 +3,8 @@ var http = require('http'),
     path = require('path'),
     app = express(),
     apiServer = require('./api/index.js'),
-    port = process.env.PORT,
-    host = process.env.IP,
+    port = process.env.PORT || 8080,
+    host = process.env.IP || 'localhost',
     publicFolderPath;
 
 http.createServer(app).listen(port, host);

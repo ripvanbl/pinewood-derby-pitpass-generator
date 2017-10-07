@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { User } from './auth/user.model';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,36 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  private userSubscription: Subscription;
+  
   title = 'Pitpass Generator';
-  user: Observable<firebase.User>;
+  user: User;
 
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(public authService: AuthService, 
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router) {}
   
   ngOnInit() {
-    this.user = this.afAuth.authState;
+    this.userSubscription = this.authService.user.subscribe(value => {
+      this.user = value;
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+  
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.userSubscription.unsubscribe();
   }
   
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    this.authService.login();
   }
   
   logout() {
-      this.afAuth.auth.signOut();
+    this.authService
+      .logout()
+      .then(() => {
+        this.router.navigate(['/']);
+      });
   }
 }

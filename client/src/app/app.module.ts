@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdToolbarModule, MdInputModule, MdButtonModule, MdCardModule, MdProgressSpinnerModule, MdSelectModule } from '@angular/material';
+import { MdMenuModule, MdToolbarModule, MdInputModule, MdButtonModule, MdCardModule, MdProgressSpinnerModule, MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -13,7 +13,10 @@ import { InfoComponent } from './info/info.component';
 import { PhotoComponent } from './photo/photo.component';
 import { IntroComponent } from './intro/intro.component';
 
+import { AuthService } from './auth/auth.service';
+import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
 import { RacerService } from './racer/racer.service';
+import { StorageService } from './storage/storage.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -44,13 +47,17 @@ export const firebaseConfig = {
     MdButtonModule,
     MdCardModule,
     MdInputModule,
+    MdMenuModule,
     MdProgressSpinnerModule,
     MdSelectModule,
     MdToolbarModule,
     AppRoutingModule
   ],
   providers: [
-    RacerService
+    AuthService,
+    CanActivateViaAuthGuard,
+    RacerService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })
