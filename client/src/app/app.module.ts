@@ -14,6 +14,7 @@ import { PhotoComponent } from './photo/photo.component';
 import { IntroComponent } from './intro/intro.component';
 
 import { AuthService } from './auth/auth.service';
+import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
 import { RacerService } from './racer/racer.service';
 import { StorageService } from './storage/storage.service';
 
@@ -53,6 +54,7 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthService,
+    CanActivateViaAuthGuard,
     RacerService,
     StorageService
   ],

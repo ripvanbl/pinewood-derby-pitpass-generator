@@ -7,7 +7,6 @@ A simple test application for creating a generic pit pass which can be used for 
 - Install and Build
 ```javascript
 npm install
-npm run build
 ```
 - Start
 ```javascript
