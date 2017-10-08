@@ -45,7 +45,7 @@ export class AuthService implements OnDestroy {
             this.storage.setItem(this.USER_KEY, usr);
             this.user.next(usr);
           })
-          .catch((err) => { 
+          .catch((err: Error) => { 
             console.log('LOGIN:', err);
             this.storage.removeItem(this.USER_KEY);
             this.user.next(null);
@@ -58,7 +58,7 @@ export class AuthService implements OnDestroy {
     return new Promise((resolve, reject) => {
       this.afAuth.auth
       .signOut()
-      .catch((err) => {
+      .catch((err: Error) => {
         console.log('LOGIN:', err);
       })
       .then(() => {
