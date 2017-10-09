@@ -3,11 +3,16 @@
     <md-card-title>Select a theme</md-card-title>
   </md-card-header>
   <md-card-content>
-    <md-grid-list cols="2" rowHeight="2:1">
-      <md-grid-tile>1</md-grid-tile>
-      <md-grid-tile>2</md-grid-tile>
-      <md-grid-tile>3</md-grid-tile>
-      <md-grid-tile>4</md-grid-tile>
+    <md-grid-list cols="1">
+      <md-grid-tile>
+        <div class="theme-card-front">
+          <div class="theme-profile">
+            <img class="theme-profile-pic" [src]="racer.profilePhotoDataURL" />
+          </div>
+        </div>
+        <div class="theme-card-back">
+        </div>
+      </md-grid-tile>
     </md-grid-list>
   </md-card-content>
   <md-card-actions>

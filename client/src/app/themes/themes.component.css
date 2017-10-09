@@ -1,0 +1,3 @@
+.theme-card-back { background: url('/assets/themes/ppg-theme-b-2017.png') no-repeat center center; background-size: contain; height: 300px; width: 202px; }
+.theme-card-front { background: url('/assets/themes/ppg-theme-f-2017.png') no-repeat center center; background-size: contain; height: 300px; width: 202px; }
+.theme-profile-pic { display:block; margin:90px auto; max-height:80px; }
