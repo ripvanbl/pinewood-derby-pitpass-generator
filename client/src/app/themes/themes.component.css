@@ -1,3 +1,8 @@
 .theme-card-back { background: url('/assets/themes/ppg-theme-b-2017.png') no-repeat center center; background-size: contain; height: 300px; width: 202px; }
 .theme-card-front { background: url('/assets/themes/ppg-theme-f-2017.png') no-repeat center center; background-size: contain; height: 300px; width: 202px; }
-.theme-profile-pic { display:block; margin:90px auto; max-height:80px; }
+.theme-card-front-text { color: #ff0000; letter-spacing: 1px; text-shadow: -1px 0 1px #db7234, 0 1px 1px #db7234, 1px 0 1px #db7234, 0 -1px 1px #db7234; }
+.theme-card-front-title { margin: 64px auto 10px; text-align: center; }
+.theme-profile-pic { display: block; margin: 0px auto; max-height: 70px; }
+.theme-profile-name { margin: 10px auto 0px; text-align: center; }
+.theme-card-back-text { font-weight: bold; }
+.theme-card-back-title { margin: 30px auto; text-align: center; }
