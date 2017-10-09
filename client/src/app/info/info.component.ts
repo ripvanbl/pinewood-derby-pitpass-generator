@@ -30,10 +30,10 @@ export class InfoComponent implements OnInit {
 
   createForm(): void {
     this.racerForm = this.formBuilder.group({
-      firstname: [this.racerService.racer.firstname, Validators.required],
-      lastname: [this.racerService.racer.lastname, Validators.required],
+      firstname: [this.racerService.racer.firstname, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      lastname: [this.racerService.racer.lastname, Validators.compose([Validators.required, Validators.maxLength(20)])],
       rank: [this.racerService.racer.rank, Validators.required],
-      carname: [this.racerService.racer.carname, Validators.required]
+      carname: [this.racerService.racer.carname, Validators.compose([Validators.required, Validators.maxLength(20)])]
     });
   }
 

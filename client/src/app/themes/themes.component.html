@@ -3,26 +3,27 @@
     <md-card-title>Select a theme</md-card-title>
   </md-card-header>
   <md-card-content>
-    <md-grid-list cols="1">
-      <md-grid-tile>
-        <div class="theme-card-front theme-card-front-text">
-          <div class="theme-card-front-title">
-            Pack 172 - {{ currentDate | date:'yyyy' }}
-          </div>
-          <div class="theme-profile">
-            <img class="theme-profile-pic" [src]="racer.profilePhotoDataURL" />
-          </div>
-          <div class="theme-profile-name">
-            {{racer.firstname}} {{racer.lastname}}
-          </div>
+    <div class="theme">
+      <div class="theme-card theme-card-front theme-card-front-text">
+        <div class="theme-card-front-title">
+          Pack 172 - {{ currentDate | date:'yyyy' }}
         </div>
-        <div class="theme-card-back theme-card-back-text">
-          <div class="theme-card-back-title">
-            Pack 172 Pinewood Derby
-          </div>
+        <div class="theme-profile">
+          <img class="theme-profile-pic" [src]="racer.profilePhotoDataURL" />
         </div>
-      </md-grid-tile>
-    </md-grid-list>
+        <div class="theme-profile-name">
+          {{racer.firstname}} {{racer.lastname}}
+        </div>
+      </div>
+      <div class="theme-card theme-card-back theme-card-back-text">
+        <div class="theme-card-back-title">
+          Pack 172 Pinewood Derby
+        </div>
+        <div class="theme-card-back-carname">
+          {{racer.carname}}
+        </div>
+      </div>
+    </div>
   </md-card-content>
   <md-card-actions>
     <a md-button [routerLink]="['/info']">BACK</a>

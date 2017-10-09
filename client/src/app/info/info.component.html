@@ -5,15 +5,15 @@
   <md-card-content>
     <form [formGroup]="racerForm" novalidate>
       <md-form-field>
-        <input mdInput placeholder="First name" name="firstname" formControlName="firstname">
+        <input maxlength="20" mdInput placeholder="First name" name="firstname" formControlName="firstname">
       </md-form-field>
 
       <md-form-field>
-        <input mdInput placeholder="Last Name" name="lastname" formControlName="lastname">
+        <input maxlength="20" mdInput placeholder="Last Name" name="lastname" formControlName="lastname">
       </md-form-field>
       
       <md-form-field>
-        <input mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
+        <input maxlength="20" mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
       </md-form-field>
 
       <md-select placeholder="Rank" formControlName="rank">

@@ -62,7 +62,7 @@ export class AuthService implements OnDestroy {
         console.log('LOGIN:', err);
       })
       .then(() => {
-        this.storage.removeItem(this.USER_KEY);
+        this.storage.clear();
         this.user.next(null);
         resolve();
       });

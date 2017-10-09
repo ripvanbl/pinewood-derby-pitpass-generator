@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from './auth/user.model';
 import { AuthService } from './auth/auth.service';
@@ -23,6 +23,14 @@ export class AppComponent {
     this.userSubscription = this.authService.user.subscribe(value => {
       this.user = value;
       this.changeDetectorRef.detectChanges();
+    });
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      
+      window.scrollTo(0, 0)
     });
   }
   

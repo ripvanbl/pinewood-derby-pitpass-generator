@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, ViewChild, SimpleChanges, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, SimpleChanges, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
 
 @Component({
@@ -23,10 +23,6 @@ export class PhotoComponent implements OnInit {
 
   ngOnInit() {
     this.isProcessing = false;
-  }
-  
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('PHOTO Changes:', changes.profilePhotoDataURL.currentValue, changes.profilePhotoDataURL.previousValue);
   }
   
   ngAfterViewInit() {
