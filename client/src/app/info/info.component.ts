@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Racer, ranks } from '../racer/racer.model';
 import { RacerService } from '../racer/racer.service';
+
 
 @Component({
   selector: 'app-info',
@@ -10,42 +12,73 @@ import { RacerService } from '../racer/racer.service';
   styleUrls: ['./info.component.css']
 })
 export class InfoComponent implements OnInit {
-  racer: Racer;
-  racerForm: FormGroup;
-  isProcessing: boolean;
-  ranks = ranks;
+  @Output() onRacerSaved = new EventEmitter<void>();
+
+  public racerForm: FormGroup;
+  public isProcessing: boolean;
+  public ranks = ranks;
 
   constructor(
-    private racerService: RacerService, 
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private racerService: RacerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.racer = this.racerService.fetch();
     this.createForm();
   }
 
-  createForm() {
+  createForm(): void {
     this.racerForm = this.formBuilder.group({
-      firstname: [this.racer.firstname, Validators.required],
-      lastname: [this.racer.lastname, Validators.required],
-      rank: [this.racer.rank, Validators.required],
-      carname: [this.racer.carname, Validators.required]
+      firstname: [this.racerService.racer.firstname, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      lastname: [this.racerService.racer.lastname, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      rank: [this.racerService.racer.rank, Validators.required],
+      carname: [this.racerService.racer.carname, Validators.compose([Validators.required, Validators.maxLength(20)])]
     });
   }
 
-  onPhotoProcessing() {
+  onPhotoProcessing(): void {
     this.isProcessing = true;
   }
 
-  onPhotoProcessed(dataUrl) {
+  onPhotoProcessed(dataUrl): void {
     this.isProcessing = false;
-    this.racer.profilePhotoDataURL = dataUrl;
+    this.racerService.racer.profilePhotoDataURL = dataUrl;
   }
   
-  resetForm() {
-    this.racer = this.racerService.reset();
-    this.racerForm.reset();
+  resetForm(): void {
+    this.isProcessing = true;
+
+    this.racerService
+      .reset()
+      .then((rcr: Racer) => {
+        this.racerForm.reset();
+      })
+      .catch((err: Error) => {
+        console.log('RESET RACER:', err);
+      })
+      .then(() => {
+        this.isProcessing = false;
+      });
   }
 
+  saveForm(model: Racer): void {
+    this.isProcessing = true;
+
+    // Patch the racer
+    Object.assign(this.racerService.racer, model);
+    
+    this.racerService
+      .save()
+      .then(() => {
+        this.onRacerSaved.emit();
+        this.router.navigate(['/theme']);
+      })
+      .catch((err: Error) => {
+        console.log('SAVE RACER:', err);
+      })
+      .then(() => {
+        this.isProcessing = false;
+      });
+  }
 }

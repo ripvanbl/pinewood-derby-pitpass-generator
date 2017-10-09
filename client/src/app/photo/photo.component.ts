@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, ViewChild, SimpleChanges, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, SimpleChanges, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
 
 @Component({
@@ -10,7 +10,8 @@ import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
 export class PhotoComponent implements OnInit {
   private trans1x1: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   private cardWidth: number = 400;
-  isProcessing: boolean;
+  
+  public isProcessing: boolean;
   
   @Input() profilePhotoDataURL: string = this.trans1x1;
   
@@ -24,10 +25,6 @@ export class PhotoComponent implements OnInit {
     this.isProcessing = false;
   }
   
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('PHOTO Changes:', changes.profilePhotoDataURL.currentValue, changes.profilePhotoDataURL.previousValue);
-  }
-  
   ngAfterViewInit() {
     this.cardWidth = this.card.nativeElement.clientWidth;
   }
@@ -38,7 +35,12 @@ export class PhotoComponent implements OnInit {
 
     this
       .readFiles(input.files)
-      .then((dataUrl) => { this.resizePhoto(dataUrl); })
+      .then((dataUrl) => { 
+        this.resizePhoto(dataUrl)
+            .then((photoDataURL) => {
+              this.onPhotoProcessed.emit(photoDataURL);
+            });
+      })
       .then(() => { 
         setTimeout(
           () => { this.changeDetectorRef.detectChanges(); },
@@ -50,8 +52,7 @@ export class PhotoComponent implements OnInit {
         console.warn('Photo: Something went wrong', err);
       })
       .then(() => { 
-        this.isProcessing = false; 
-        this.onPhotoProcessed.emit(this.profilePhotoDataURL); 
+        this.isProcessing = false;
       });
   }
   
@@ -78,25 +79,34 @@ export class PhotoComponent implements OnInit {
     
   }
 
-  private resizePhoto(dataUrl) {
+  private resizePhoto(dataUrl): Promise<any> {
     let img = new Image();
-    
-    // Wait for the data to load before calculating
-    img.onload = () => {
-      let originalHeight = img.naturalHeight;
-      let originalWidth = img.naturalWidth;
-      let aspectRatio = originalWidth / originalHeight;
-      let width = this.cardWidth;
-      let height = this.cardWidth * originalHeight / originalWidth;
-      let canvas = this.renderer.createElement('canvas');
+
+    return new Promise((resolve, reject) => {
+      // Wait for the data to load before calculating
+      img.onload = () => {
+        let photoDataURL = null;
+        let originalHeight = img.naturalHeight;
+        let originalWidth = img.naturalWidth;
+        let aspectRatio = originalWidth / originalHeight;
+        let width = this.cardWidth;
+        let height = this.cardWidth * originalHeight / originalWidth;
+        let canvas = this.renderer.createElement('canvas');
+        
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        photoDataURL = canvas.toDataURL("image/png");
+
+        resolve(photoDataURL);
+      };
+
+      img.onerror = () => {
+        reject();
+      };
       
-      canvas.width = width;
-      canvas.height = height;
-      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-      this.profilePhotoDataURL = canvas.toDataURL("image/png");
-    };
-    
-    // Set the source to the file
-    img.src = dataUrl;
+      // Set the source to the file
+      img.src = dataUrl;
+    });
   }
 }

@@ -36,30 +36,33 @@ export class AuthService implements OnDestroy {
     return this._loggedIn;
   }
 
-  login(): void {
-    this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then((result) => {
-          let usr = new User(result.user);
-          this.storage.setItem(this.USER_KEY, usr);
-          this.user.next(usr);
-        })
-        .catch((err) => { 
-          console.log('LOGIN:', err);
-          this.storage.removeItem(this.USER_KEY);
-          this.user.next(null);
-        });
+  login(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth
+          .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+          .then((result) => {
+            let usr = new User(result.user);
+            this.storage.setItem(this.USER_KEY, usr);
+            this.user.next(usr);
+          })
+          .catch((err: Error) => { 
+            console.log('LOGIN:', err);
+            this.storage.removeItem(this.USER_KEY);
+            this.user.next(null);
+          })
+          .then(resolve);
+    });
   }
 
   logout(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afAuth.auth
       .signOut()
-      .catch((err) => {
+      .catch((err: Error) => {
         console.log('LOGIN:', err);
       })
       .then(() => {
-        this.storage.removeItem(this.USER_KEY);
+        this.storage.clear();
         this.user.next(null);
         resolve();
       });
