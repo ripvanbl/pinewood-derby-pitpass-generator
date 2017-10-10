@@ -13,10 +13,10 @@
       </md-form-field>
       
       <md-form-field>
-        <input maxlength="20" mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
+        <input maxlength="40" mdInput placeholder="Race Car Name" name="carname" formControlName="carname">
       </md-form-field>
 
-      <md-select placeholder="Rank" formControlName="rank">
+      <md-select placeholder="Rank" formControlName="rank" (change)="onRankChanged($event)">
           <md-option *ngFor="let rank of ranks" [value]="rank">{{rank}}</md-option>
       </md-select>
       

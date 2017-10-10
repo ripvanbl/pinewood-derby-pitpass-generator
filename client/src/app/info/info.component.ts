@@ -33,7 +33,7 @@ export class InfoComponent implements OnInit {
       firstname: [this.racerService.racer.firstname, Validators.compose([Validators.required, Validators.maxLength(20)])],
       lastname: [this.racerService.racer.lastname, Validators.compose([Validators.required, Validators.maxLength(20)])],
       rank: [this.racerService.racer.rank, Validators.required],
-      carname: [this.racerService.racer.carname, Validators.compose([Validators.required, Validators.maxLength(20)])]
+      carname: [this.racerService.racer.carname, Validators.compose([Validators.required, Validators.maxLength(40)])]
     });
   }
 
@@ -44,6 +44,10 @@ export class InfoComponent implements OnInit {
   onPhotoProcessed(dataUrl): void {
     this.isProcessing = false;
     this.racerService.racer.profilePhotoDataURL = dataUrl;
+  }
+
+  onRankChanged(model): void {
+    this.racerService.racer.setPhotoDataURLByRank(model ? model.value : null);
   }
   
   resetForm(): void {

@@ -8,4 +8,4 @@
 .theme-profile-name { margin: 10px auto 0px; padding: 0px 8px; text-align: center; }
 .theme-card-back-text { font-size: 20px; font-weight: bold; }
 .theme-card-back-title { margin: 60px auto 0px; text-align: center; }
-.theme-card-back-carname { margin: 10px auto; text-align: center; }
+.theme-card-back-carname { margin: 10px auto; padding: 0px 10px; text-align: center; }
