@@ -1,11 +1,1 @@
-.theme { overflow: auto; }
-.theme-card { display: inline-block; float:left; height: 432px; margin: 4px; width: 288px; }
-.theme-card-back { background: url('/assets/themes/ppg-theme-b-2017.png') no-repeat center center; background-size: contain; }
-.theme-card-front { background: url('/assets/themes/ppg-theme-f-2017.png') no-repeat center center; background-size: contain; }
-.theme-card-front-text { color: #ff0000; font-size: 20px; letter-spacing: 1px; text-shadow: -1px 0 1px #db7234, 0 1px 1px #db7234, 1px 0 1px #db7234, 0 -1px 1px #db7234; }
-.theme-card-front-title { margin: 90px auto 0px; text-align: center; }
-.theme-profile-pic { display: block; margin: 10px auto 0px; max-height: 100px; }
-.theme-profile-name { margin: 10px auto 0px; padding: 0px 8px; text-align: center; }
-.theme-card-back-text { font-size: 20px; font-weight: bold; }
-.theme-card-back-title { margin: 60px auto 0px; text-align: center; }
-.theme-card-back-carname { margin: 10px auto; text-align: center; }
+.themes { overflow: auto; }

@@ -1,32 +1,17 @@
 <md-card>
   <md-card-header>
     <md-card-title>Select a theme</md-card-title>
+    <md-card-subtitle>
+      At the moment there is only one theme, but eventually there could be more.
+    </md-card-subtitle>
   </md-card-header>
   <md-card-content>
-    <div class="theme">
-      <div class="theme-card theme-card-front theme-card-front-text">
-        <div class="theme-card-front-title">
-          Pack 172 - {{ currentDate | date:'yyyy' }}
-        </div>
-        <div class="theme-profile">
-          <img class="theme-profile-pic" [src]="racer.profilePhotoDataURL" />
-        </div>
-        <div class="theme-profile-name">
-          {{racer.firstname}} {{racer.lastname}}
-        </div>
-      </div>
-      <div class="theme-card theme-card-back theme-card-back-text">
-        <div class="theme-card-back-title">
-          Pack 172 Pinewood Derby
-        </div>
-        <div class="theme-card-back-carname">
-          {{racer.carname}}
-        </div>
-      </div>
+    <div class="themes" id="themes">
+      <app-pack172-2018></app-pack172-2018>
     </div>
   </md-card-content>
   <md-card-actions>
     <a md-button [routerLink]="['/info']">BACK</a>
-    <button md-button type="button">NEXT</button>
+    <app-print></app-print>
   </md-card-actions>
 </md-card>

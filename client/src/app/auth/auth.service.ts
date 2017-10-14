@@ -14,7 +14,7 @@ export class AuthService implements OnDestroy {
   private _loggedIn: boolean = false;
   private _user$: Subscription = null;
   
-  user: BehaviorSubject<User>;
+  public user: BehaviorSubject<User>;
 
   constructor(private afAuth: AngularFireAuth, private storage: StorageService) {
     this.user = new BehaviorSubject<User>(null);
