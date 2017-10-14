@@ -32,8 +32,8 @@ export class InfoComponent implements OnInit {
     this.racerForm = this.formBuilder.group({
       firstname: [this.racerService.racer.firstname, Validators.compose([Validators.required, Validators.maxLength(20)])],
       lastname: [this.racerService.racer.lastname, Validators.compose([Validators.required, Validators.maxLength(20)])],
-      rank: [this.racerService.racer.rank, Validators.required],
-      carname: [this.racerService.racer.carname, Validators.compose([Validators.required, Validators.maxLength(40)])]
+      rank: [this.racerService.racer.rank],
+      carname: [this.racerService.racer.carname, Validators.compose([Validators.maxLength(40)])]
     });
   }
 

@@ -1,4 +1,4 @@
-.theme-card { float:left; height: 432px; margin: 4px; width: 288px; }
+.theme-card { float:left; height: 432px; width: 288px; }
 .theme-card-back { background: url('/assets/themes/ppg-theme-b-2017.png') no-repeat center center; background-size: contain; }
 .theme-card-front { background: url('/assets/themes/ppg-theme-f-2017.png') no-repeat center center; background-size: contain; }
 .theme-card-front-text { color: #ff0000; font-size: 20px; letter-spacing: 1px; text-shadow: -1px 0 1px #db7234, 0 1px 1px #db7234, 1px 0 1px #db7234, 0 -1px 1px #db7234; }

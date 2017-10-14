@@ -28,6 +28,7 @@ import { RacerService } from './racer/racer.service';
 import { StorageService } from './storage/storage.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { PrintComponent } from './print/print.component';
 
 
 export const firebaseConfig = {
@@ -46,7 +47,8 @@ export const firebaseConfig = {
     PhotoComponent,
     IntroComponent,
     ThemesComponent,
-    Pack1722018Component
+    Pack1722018Component,
+    PrintComponent
   ],
   imports: [
     BrowserModule,

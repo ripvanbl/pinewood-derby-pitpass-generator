@@ -6,12 +6,12 @@
     </md-card-subtitle>
   </md-card-header>
   <md-card-content>
-    <div class="themes">
+    <div class="themes" id="themes">
       <app-pack172-2018></app-pack172-2018>
     </div>
   </md-card-content>
   <md-card-actions>
     <a md-button [routerLink]="['/info']">BACK</a>
-    <a md-button [routerLink]="['/save']">SAVE</a>
+    <app-print></app-print>
   </md-card-actions>
 </md-card>

@@ -21,7 +21,11 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
+        "../node_modules/jspdf/dist/jspdf.min.js",
+        "assets/libs/html2pdf.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
