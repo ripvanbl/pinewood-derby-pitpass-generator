@@ -9,16 +9,16 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
-  
+
   title = 'Pitpass Generator';
   user: User;
 
-  constructor(public authService: AuthService, 
+  constructor(public authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router) {}
-  
+
   ngOnInit() {
     this.userSubscription = this.authService.user.subscribe(value => {
       this.user = value;
@@ -29,27 +29,22 @@ export class AppComponent {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      
+
       window.scrollTo(0, 0)
     });
   }
-  
+
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.userSubscription.unsubscribe();
   }
-  
+
   login() {
-    this.authService
-      .login()
-      .then(() => {
-        this.changeDetectorRef.detectChanges();
-      });
+    this.authService.login();
   }
-  
+
   logout() {
-    this.authService
-      .logout()
+    this.authService.logout()
       .then(() => {
         this.router.navigate(['/']);
       });

@@ -4,9 +4,6 @@
   </md-card-header>
   <md-card-content>
     <p>Use this simple three step process to generate your own pitpass.</p>
-    <p *ngIf="!(user|async)?.uid">
-      Please login with your Facebook profile to get started.
-    </p>
   </md-card-content>
   <md-card-actions>
     <a md-button routerLink="/info" *ngIf="(user|async)?.uid">NEXT</a>
