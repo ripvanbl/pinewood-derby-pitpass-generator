@@ -1,21 +1,30 @@
-var http = require('http'),
+const http = require('http'),
     express = require('express'),
+    bodyParser = require('body-parser'),
     path = require('path'),
     app = express(),
+    db = require('./db');
     apiServer = require('./api/index.js'),
-    port = process.env.PORT || 8080,
-    publicFolderPath;
+    config = require('./config');
 
-publicFolderPath = path.resolve(__dirname, '../client/dist');
-console.log('Serving static content from:', publicFolderPath);
-
+app.use(bodyParser.json());
 app.use('/api', apiServer); // Mount the HTTP API on the URL space /api
-app.use(express.static(publicFolderPath)); // For other requests, just serve /public
+app.use(express.static(config.staticFiles)); // For other requests, just serve from the static files location
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.resolve(publicFolderPath, 'index.html'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(config.staticFiles, 'index.html'));
 });
 
-http.createServer(app).listen(port, function() {
-  console.log('HTTP listening at port', port);
+http.createServer(app).listen(config.port, () => {
+  console.log(`Server listening at port ${config.port}`);
+
+  // Establish connection to database
+  db.connect();
+
+  // Disconnect on shutdown
+  process.on('SIGINT', () => {
+    console.log(`\nClosing database connection...`);
+    db.disconnect();
+    process.exit(0);
+  });
 });
