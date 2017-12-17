@@ -26,14 +26,14 @@ router.post('/pitpass', pitpass.create);
 router.put('/pitpass', pitpass.update);
 
 /**
- * Find a pitpass by id.
+ * Get a specific pitpass.
  */
-router.get('/pitpass/:id', pitpass.findById);
+router.get('/pitpass/:id', pitpass.getById);
 
 /**
- * Find pitpasses by user id.
+ * Find pitpasses by querystring params.
  */
-router.get('/pitpass', pitpass.findByUserId);
+router.get('/pitpass', pitpass.find);
 
 
 module.exports = router;
