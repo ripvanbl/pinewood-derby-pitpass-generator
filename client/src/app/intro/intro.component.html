@@ -4,8 +4,14 @@
   </md-card-header>
   <md-card-content>
     <p>Use this simple three step process to generate your own pitpass.</p>
+    <ol>
+      <li>Fill in your racer's information</li>
+      <li>Pick a theme</li>
+      <li>Save<sup>*</sup> or Print</li>
+    </ol>
+    <p><sup>*</sup> Saving requires you to login.</p>
   </md-card-content>
   <md-card-actions>
-    <a md-button routerLink="/info" *ngIf="(user|async)?.uid">NEXT</a>
+    <a md-button routerLink="/info">NEXT</a>
   </md-card-actions>
 </md-card>

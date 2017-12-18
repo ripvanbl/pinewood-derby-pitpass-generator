@@ -22,14 +22,11 @@ export class AuthService implements OnDestroy {
     this.user = new BehaviorSubject<User>(null);
 
     this._authState$ = this.afAuth.authState.subscribe((usr) => { this._setAuthState(usr); });
-    // this._user$ = this.user.subscribe((usr) => { this._setLoggedIn(usr); });
 
     const storedUser = this.storage.getItem(this.USER_KEY);
 
     if (storedUser) {
       this.user.next(storedUser);
-    } else {
-      this.loginAnonymous();
     }
   }
 

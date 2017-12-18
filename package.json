@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "body-parser": "1.17.1",
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "mongoose": "4.13.7",
+    "mongoose-string-query": "0.2.5",
+    "mongoose-timestamp": "0.6.0"
   },
   "engines": {
     "node": "6.9.5",
