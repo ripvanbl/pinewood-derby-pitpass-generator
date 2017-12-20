@@ -29,6 +29,7 @@ import { StorageService } from './storage/storage.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PrintComponent } from './print/print.component';
+import { SaveComponent } from './save/save.component';
 
 
 export const firebaseConfig = {
@@ -48,7 +49,8 @@ export const firebaseConfig = {
     IntroComponent,
     ThemesComponent,
     Pack1722018Component,
-    PrintComponent
+    PrintComponent,
+    SaveComponent
   ],
   imports: [
     BrowserModule,
