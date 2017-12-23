@@ -29,11 +29,16 @@ function _initialize() {
     if (!req.headers.authorization || req.headers.authorization.length < 8) {
       return res.status(401).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_AUTH_TOKEN));
     }
+
+    const token = req.headers.authorization.substr(7);
     
-    auth.verifyToken(req.headers.authorization.substr(8))
-      .then(next)
+    auth.verifyToken(token)
+      .then((uid) => {
+        req.uid = uid;
+        next();
+      })
       .catch((error) => {
-        console.log(`User Auth Error: ${error}`);
+        console.log(`User Auth ${error}`);
         res.status(403).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_AUTH_INVALID_USER));
       });
   })  
