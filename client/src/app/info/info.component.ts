@@ -19,8 +19,8 @@ export class InfoComponent implements OnInit {
   public ranks = ranks;
 
   constructor(
+    public racerService: RacerService,
     private formBuilder: FormBuilder,
-    private racerService: RacerService,
     private router: Router
   ) {}
 

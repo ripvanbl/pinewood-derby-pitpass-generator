@@ -5,5 +5,8 @@
 
 export const environment = {
   production: false,
-  endpointPrefix: '/api'
+  endpointPrefix: '/api',
+  routes: {
+    pitpass: '/pitpass'
+  }
 };

@@ -4,6 +4,7 @@ import { User } from '../auth/user.model';
 import { Racer } from './racer.model';
 import { StorageService } from '../storage/storage.service';
 import { HttpService } from '../network/http.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class RacerService {
@@ -57,20 +58,22 @@ export class RacerService {
           const rcr = this._racer.getSaveModel();
 
           if (rcr._id) {
-            this.httpService.put('/pitpass', rcr)
-              .subscribe(resp => { resolve(this._racer); },
-              error => { reject(null); }
+            this.httpService.put(environment.routes.pitpass, rcr)
+              .subscribe(
+                resp => { resolve(this._racer); },
+                error => { reject(null); }
               );
           } else {
-            this.httpService.post('/pitpass', rcr)
-              .subscribe(resp => {
-                this._racer._id = resp.data._id;
-                this._racer.uid = resp.data.uid;
-                this.save()
-                  .then(() => { resolve(this._racer); })
-                  .catch(() => { reject(null); });
-              },
-              error => { reject(null); }
+            this.httpService.post(environment.routes.pitpass, rcr)
+              .subscribe(
+                resp => {
+                  this._racer._id = resp.data._id;
+                  this._racer.uid = resp.data.uid;
+                  this.save()
+                    .then(() => { resolve(this._racer); })
+                    .catch(() => { reject(null); });
+                },
+                error => { reject(null); }
               );
           }
         } else {
