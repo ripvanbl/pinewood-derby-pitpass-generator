@@ -26,6 +26,7 @@ import { AuthService } from './auth/auth.service';
 import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
 import { RacerService } from './racer/racer.service';
 import { StorageService } from './storage/storage.service';
+import { HttpService } from './network/http.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PrintComponent } from './print/print.component';
@@ -74,7 +75,8 @@ export const firebaseConfig = {
     AuthService,
     CanActivateViaAuthGuard,
     RacerService,
-    StorageService
+    StorageService,
+    HttpService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,7 +7,6 @@ import * as firebase from 'firebase/app';
 
 import { User } from './user.model';
 import { StorageService } from '../storage/storage.service';
-import { Promise } from 'q';
 
 @Injectable()
 export class AuthService implements OnDestroy {
@@ -35,13 +34,24 @@ export class AuthService implements OnDestroy {
     this._authState$.unsubscribe();
   }
 
+  getUserIdToken(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then((idToken) => {
+          resolve(idToken);
+        }).catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
   isLoggedIn(): boolean {
     return this._loggedIn;
   }
 
   login(): void {
     this.afAuth.auth
-          .signInWithPopup(new firebase.auth.FacebookAuthProvider());
+      .signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
 
   loginAnonymous(): void {
@@ -49,7 +59,7 @@ export class AuthService implements OnDestroy {
   }
 
   logout(): Promise<any> {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.afAuth.auth.signOut()
         .catch((err: Error) => {
           console.log('LOGOUT:', err);

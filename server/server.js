@@ -11,7 +11,7 @@ const http = require('http'),
     apiServer = require('./api/index.js'),
     config = require('./config');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: config.bodyLimitSize}));
 app.use('/api', apiServer); // Mount the HTTP API on the URL /api
 app.use(express.static(config.staticFiles)); // For other requests, just serve from the static files location
 

@@ -3,38 +3,31 @@ import { Injectable } from '@angular/core';
 import { User } from '../auth/user.model';
 import { Racer } from './racer.model';
 import { StorageService } from '../storage/storage.service';
-import { Promise } from 'q';
+import { HttpService } from '../network/http.service';
 
 @Injectable()
 export class RacerService {
   private RACER_KEY = 'racer';
   private PERSIST_QUEUE_KEY = 'persist';
   private _racer: Racer;
-  private _persistQueue: Array<Racer>;
 
   public get racer(): Racer {
     return this._racer;
   }
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService,
+    private httpService: HttpService) {
     const rcr = this.storageService.getItem(this.RACER_KEY);
-    const prcr = this.storageService.getItem(this.PERSIST_QUEUE_KEY);
 
     if (rcr) {
       this._racer = new Racer(rcr);
     } else {
       this._racer = new Racer();
     }
-
-    if (prcr) {
-      this._persistQueue = prcr;
-    } else {
-      this._persistQueue = [];
-    }
   }
 
   reset(): Promise<any> {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         this._racer.reset();
         this.storageService.removeItem(this.RACER_KEY);
@@ -45,8 +38,8 @@ export class RacerService {
     });
   }
 
-  save(user?: User): Promise<any> {
-    return Promise((resolve, reject) => {
+  save(): Promise<any> {
+    return new Promise((resolve, reject) => {
       try {
         this.storageService.setItem(this.RACER_KEY, this._racer);
 
@@ -58,12 +51,28 @@ export class RacerService {
   }
 
   saveToProfile(user: User): Promise<any> {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         if (user && user.uid && this._racer) {
-          const rcr = Object.assign({}, this._racer);
-          this._persistQueue.push(rcr);
-          this.storageService.setItem(this.PERSIST_QUEUE_KEY, this._persistQueue);
+          const rcr = this._racer.getSaveModel();
+
+          if (rcr._id) {
+            this.httpService.put('/pitpass', rcr)
+              .subscribe(resp => { resolve(this._racer); },
+              error => { reject(null); }
+              );
+          } else {
+            this.httpService.post('/pitpass', rcr)
+              .subscribe(resp => {
+                this._racer._id = resp.data._id;
+                this._racer.uid = resp.data.uid;
+                this.save()
+                  .then(() => { resolve(this._racer); })
+                  .catch(() => { reject(null); });
+              },
+              error => { reject(null); }
+              );
+          }
         } else {
           reject(null);
         }

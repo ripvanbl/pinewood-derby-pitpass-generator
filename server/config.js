@@ -11,6 +11,7 @@ module.exports = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 8080,
   staticFiles: path.resolve(__dirname, '../client/dist'),
+  bodyLimitSize: '1mb',
   db: {
     uri: process.env.MONGODB_URI || 'mongodb://127.0.0.1/pitpass'
   },
