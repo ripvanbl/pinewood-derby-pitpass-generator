@@ -48,6 +48,8 @@ function create(req, res) {
   const item = req.body;
   const model = new Pitpass(item);
 
+  model.uid = req.uid;
+
   model.save()
     .then((doc) => {
       res.status(201)

@@ -10,7 +10,7 @@ const mongooseTimestamp = require('mongoose-timestamp');
 
 const PitpassSchema = new mongoose.Schema(
   {
-    userid: {
+    uid: {
       type: String,
       required: true,
       trim: true
