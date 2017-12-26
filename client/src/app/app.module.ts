@@ -32,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PrintComponent } from './print/print.component';
 import { SaveComponent } from './save/save.component';
 import { PitpassComponent } from './pitpass/pitpass.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 export const firebaseConfig = {
@@ -53,7 +54,8 @@ export const firebaseConfig = {
     Pack1722018Component,
     PrintComponent,
     SaveComponent,
-    PitpassComponent
+    PitpassComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
