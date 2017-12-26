@@ -31,6 +31,7 @@ import { HttpService } from './network/http.service';
 import { AppRoutingModule } from './app-routing.module';
 import { PrintComponent } from './print/print.component';
 import { SaveComponent } from './save/save.component';
+import { PitpassComponent } from './pitpass/pitpass.component';
 
 
 export const firebaseConfig = {
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     ThemesComponent,
     Pack1722018Component,
     PrintComponent,
-    SaveComponent
+    SaveComponent,
+    PitpassComponent
   ],
   imports: [
     BrowserModule,
