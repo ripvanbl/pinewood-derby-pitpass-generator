@@ -85,6 +85,7 @@ export class Racer {
   reset() {
     this.firstname = '';
     this.lastname = '';
+    this.carname = '';
     this.rank = '';
     this.profilePhotoDataURL = this.trans1x1;
   }

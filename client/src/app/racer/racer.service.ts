@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class RacerService {
   private RACER_KEY = 'racer';
-  private PERSIST_QUEUE_KEY = 'persist';
   private _racer: Racer;
 
   public get racer(): Racer {
