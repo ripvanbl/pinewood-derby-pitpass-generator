@@ -15,7 +15,7 @@ export class HttpService {
 
   constructor(private ngCoreHttp: Http, private router: Router, private authService: AuthService) { }
 
-  get(endpoint: string): Observable<Response> {
+  get(endpoint: string) {
     const getUserIdTokenFn = this.authService.getUserIdToken();
 
     return Observable.fromPromise(getUserIdTokenFn)
