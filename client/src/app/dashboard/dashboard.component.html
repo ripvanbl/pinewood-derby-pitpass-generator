@@ -1,3 +1,18 @@
-<p>
-  dashboard works!
-</p>
+<md-card>
+  <md-card-header>
+    <md-card-title>Dashboard</md-card-title>
+    <md-card-subtitle>
+      Not much here at the moment, but you can view, edit or delete your pitpasses.
+    </md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <md-grid-list cols="2" rowHeight="2:1">
+      <md-grid-tile *ngFor="let pitpass of pitpasses">
+        {{pitpass.firstname}} {{pitpass.lastname}}
+      </md-grid-tile>
+    </md-grid-list>
+  </md-card-content>
+  <md-card-actions>
+    <a md-button [routerLink]="['/info']">NEW</a>
+  </md-card-actions>
+</md-card>

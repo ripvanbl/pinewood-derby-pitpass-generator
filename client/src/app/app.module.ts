@@ -25,6 +25,7 @@ import { Pack1722018Component } from './themes/pack172-2018/pack172-2018.compone
 import { AuthService } from './auth/auth.service';
 import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
 import { RacerService } from './racer/racer.service';
+import { PitpassService } from './pitpass/pitpass.service'; 
 import { StorageService } from './storage/storage.service';
 import { HttpService } from './network/http.service';
 
@@ -78,6 +79,7 @@ export const firebaseConfig = {
   providers: [
     AuthService,
     CanActivateViaAuthGuard,
+    PitpassService,
     RacerService,
     StorageService,
     HttpService
