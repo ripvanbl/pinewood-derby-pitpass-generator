@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
+const config = require('../config');
 const version = require('./version');
 const pitpass = require('./pitpass/pitpass.route');
 const PPGResponse = require('./ppg-response');
@@ -26,6 +27,12 @@ function _initialize() {
 
   // Secure the remaining routes
   router.use((req, res, next) => {
+    // ... except if this is development
+    if (config.env === 'development') {
+      req.uid = 'development';
+      return next(); 
+    }
+
     if (!req.headers.authorization || req.headers.authorization.length < 8) {
       return res.status(401).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_AUTH_TOKEN));
     }
