@@ -38,6 +38,31 @@ const RacerSchema = new mongoose.Schema({
   }
 });
 
+const ThemeSchema = new mongoose.Schema({
+  _id: false,
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  iconDataURL: {
+    type: String,
+    required: false,
+    trim: true,
+    default: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+  },
+  component: {
+    type: String,
+    required: true,
+    trim: true
+  }
+});
+
 const PitpassSchema = new mongoose.Schema(
   {
     uid: {
@@ -47,6 +72,10 @@ const PitpassSchema = new mongoose.Schema(
     },
     racer: {
       type: RacerSchema,
+      required: true
+    },
+    theme: {
+      type: ThemeSchema,
       required: true
     }
   }

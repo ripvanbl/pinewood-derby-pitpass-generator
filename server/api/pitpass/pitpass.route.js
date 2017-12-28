@@ -10,6 +10,7 @@ const messages = {
   ERR_SAVE_PITPASS_FAILED: 'ERR_SAVE_PITPASS_FAILED',
   ERR_NO_PITPASS_ID: 'ERR_NO_PITPASS_ID',
   ERR_NO_PITPASS_RACER: 'ERR_NO_PITPASS_RACER',
+  ERR_NO_PITPASS_THEME: 'ERR_NO_PITPASS_THEME',
   ERR_NO_QUERY: 'ERR_NO_QUERY',
   PITPASS_NOT_FOUND: 'PITPASS_NOT_FOUND',
   NO_PITPASS_QUERY_MATCH: 'NO_PITPASS_QUERY_MATCH'
@@ -50,6 +51,11 @@ function create(req, res) {
 
   if (!item || !item.racer) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_RACER));
+    return;
+  }
+
+  if (!item || !item.theme) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_THEME));
     return;
   }
   
@@ -144,19 +150,19 @@ function update(req, res) {
     return;
   }
 
+  if (!item || !item.theme) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+    return;
+  }
+
   Pitpass.findById(item._id)
     .then((model) => {
       if (!model) {
         throw new Error(`Invalid Pitpass Id ${item.id}`);
       }
 
-      Object.assign(model.racer, {
-        firstname: item.racer.firstname,
-        lastname: item.racer.lastname,
-        carname: item.racer.carname,
-        rank: item.racer.rank,
-        profilePhotoDataURL: item.racer.profilePhotoDataURL
-      });
+      Object.assign(model.racer, item.racer);
+      Object.assign(model.theme, item.theme);
 
       return model;
     })
