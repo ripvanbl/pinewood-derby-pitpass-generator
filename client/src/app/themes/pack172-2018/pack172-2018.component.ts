@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Racer } from '../../racer/racer.model';
-import { RacerService } from '../../racer/racer.service';
+import { Racer } from 'app/racer/racer.model';
+import { PitpassService } from 'app/pitpass/pitpass.service';
 
 @Component({
   selector: 'app-pack172-2018',
@@ -11,10 +11,10 @@ import { RacerService } from '../../racer/racer.service';
 export class Pack1722018Component implements OnInit {
   public racer: Racer;
 
-  constructor(private racerService: RacerService) { }
+  constructor(private pitpassService: PitpassService) { }
 
   ngOnInit() {
-    this.racer = this.racerService.racer;
+    this.racer = this.pitpassService.current.racer;
   }
 
 }

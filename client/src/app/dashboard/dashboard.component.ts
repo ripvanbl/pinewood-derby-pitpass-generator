@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { PitpassService } from 'app/pitpass/pitpass.service';
 import { AuthService } from 'app/auth/auth.service';
-import { Racer } from 'app/racer/racer.model';
+import { PitpassService } from 'app/pitpass/pitpass.service';
+import { Pitpass } from 'app/pitpass/pitpass';
 import { User } from 'app/auth/user.model';
-import { RacerService } from 'app/racer/racer.service';
 
 
 @Component({
@@ -18,12 +17,11 @@ import { RacerService } from 'app/racer/racer.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   private _user$: ISubscription;
 
-  public pitpasses: Array<Racer>;
+  public pitpasses: Array<Pitpass>;
 
   constructor(private router: Router,
     private authService: AuthService,
-    private pitpassService: PitpassService,
-    private racerService: RacerService) {
+    private pitpassService: PitpassService) {
     this.pitpasses = [];
   }
 
@@ -42,9 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   newPitpass(): void {
-    this.racerService.reset()
-      .then(() => {
-        this.router.navigate(['/info']);
-      });
+    this.pitpassService.current = new Pitpass();
+    this.router.navigate(['/info']);
   }
 }

@@ -17,10 +17,10 @@
       </md-form-field>
 
       <md-select placeholder="Rank" formControlName="rank" (change)="onRankChanged($event)">
-          <md-option *ngFor="let rank of ranks" [value]="rank">{{rank}}</md-option>
+          <md-option *ngFor="let rank of ranks" [value]="rank.name">{{rank.name}}</md-option>
       </md-select>
       
-      <app-photo (onPhotoProcessing)="onPhotoProcessing()" (onPhotoProcessed)="onPhotoProcessed($event)" [profilePhotoDataURL]="racerService.racer.profilePhotoDataURL"></app-photo>
+      <app-photo (onPhotoProcessing)="onPhotoProcessing()" (onPhotoProcessed)="onPhotoProcessed($event)" [profilePhotoDataURL]="pitpass.racer.profilePhotoDataURL"></app-photo>
     </form>
   </md-card-content>
   <md-card-actions>
