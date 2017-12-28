@@ -1,4 +1,4 @@
-import { Racer } from 'app/racer/racer.model';
+import { Racer } from 'app/racer/racer';
 
 export class Pitpass {
   public _id: string;

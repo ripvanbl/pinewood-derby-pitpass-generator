@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { AuthService } from '../auth/auth.service';
-import { PitpassService } from '../pitpass/pitpass.service';
-import { User } from '../auth/user.model';
+import { AuthService } from 'app/auth/auth.service';
+import { PitpassService } from 'app/pitpass/pitpass.service';
+import { User } from 'app/auth/user';
 
 
 @Component({

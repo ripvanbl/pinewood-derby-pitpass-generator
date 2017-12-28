@@ -1,4 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input, Output, ViewChild, SimpleChanges, ElementRef, Renderer2, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild,
+  SimpleChanges, ElementRef, Renderer2, EventEmitter,
+  ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
 
 @Component({
@@ -7,28 +9,27 @@ import {MdCardModule, MdProgressSpinnerModule} from '@angular/material';
   styleUrls: ['./photo.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhotoComponent implements OnInit {
-  private trans1x1: string = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-  private cardWidth: number = 400;
-  
+export class PhotoComponent implements OnInit, AfterViewInit {
+  private trans1x1 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  private cardWidth = 400;
+
   public isProcessing: boolean;
-  
+
   @Input() profilePhotoDataURL: string = this.trans1x1;
-  
   @Output() onPhotoProcessing = new EventEmitter<void>();
   @Output() onPhotoProcessed = new EventEmitter<string>();
   @ViewChild('card') card: ElementRef;
-  
+
   constructor(private changeDetectorRef: ChangeDetectorRef, private renderer: Renderer2) {}
 
   ngOnInit() {
     this.isProcessing = false;
   }
-  
+
   ngAfterViewInit() {
     this.cardWidth = this.card.nativeElement.clientWidth;
   }
-  
+
   fileChange(input) {
     this.isProcessing = true;
     this.onPhotoProcessing.emit();
@@ -55,7 +56,7 @@ export class PhotoComponent implements OnInit {
         this.isProcessing = false;
       });
   }
-  
+
   private readFiles(files) {
     return new Promise((resolve, reject) => {
 
@@ -73,7 +74,7 @@ export class PhotoComponent implements OnInit {
       }
 
       // Read the file
-      reader.readAsDataURL(files[0]);  
+      reader.readAsDataURL(files[0]);
 
     });
     

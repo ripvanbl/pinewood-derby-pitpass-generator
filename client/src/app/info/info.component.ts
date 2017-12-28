@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { find as _find } from 'lodash';
 
-import { Racer } from 'app/racer/racer.model';
+import { Racer } from 'app/racer/racer';
 import { IRacerRank } from 'app/racer/iracer-rank';
 import { PitpassService } from 'app/pitpass/pitpass.service';
 import { Pitpass } from 'app/pitpass/pitpass';

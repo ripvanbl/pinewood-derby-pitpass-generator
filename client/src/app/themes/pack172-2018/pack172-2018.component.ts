@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Racer } from 'app/racer/racer.model';
+import { Racer } from 'app/racer/racer';
 import { PitpassService } from 'app/pitpass/pitpass.service';
 
 @Component({

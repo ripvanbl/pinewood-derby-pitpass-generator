@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/throw';
-import { AuthService } from '../auth/auth.service';
+
+import { AuthService } from 'app/auth/auth.service';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class HttpService {

@@ -6,7 +6,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { AuthService } from 'app/auth/auth.service';
 import { PitpassService } from 'app/pitpass/pitpass.service';
 import { Pitpass } from 'app/pitpass/pitpass';
-import { User } from 'app/auth/user.model';
+import { User } from 'app/auth/user';
 
 
 @Component({

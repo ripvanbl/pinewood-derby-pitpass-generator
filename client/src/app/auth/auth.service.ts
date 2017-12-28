@@ -5,8 +5,8 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import { User } from './user.model';
-import { StorageService } from '../storage/storage.service';
+import { User } from './user';
+import { StorageService } from 'app/storage/storage.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {

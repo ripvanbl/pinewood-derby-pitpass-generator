@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'lodash/map';
 
 import { HttpService } from 'app/network/http.service';
 import { StorageService } from 'app/storage/storage.service';
-import { User } from 'app/auth/user.model';
+import { User } from 'app/auth/user';
 import { Pitpass } from 'app/pitpass/pitpass';
 import { environment } from 'environments/environment';
 

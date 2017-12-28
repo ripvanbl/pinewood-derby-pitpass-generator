@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { User } from './auth/user.model';
-import { AuthService } from './auth/auth.service';
+
+import { User } from 'app/auth/user';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component({
   selector: 'app-root',
