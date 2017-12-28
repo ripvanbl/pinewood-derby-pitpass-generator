@@ -27,8 +27,8 @@ function _initialize() {
 
   // Secure the remaining routes
   router.use((req, res, next) => {
-    // ... except if this is development
-    if (config.env === 'development') {
+    // ... except if this is development mode and a request from postman
+    if (config.env === 'development' && req.headers['x-app-id'] === 'postman') {
       req.uid = 'development';
       return next(); 
     }

@@ -48,7 +48,7 @@ export class PitpassService {
           return;
         }
 
-        const pp = Object.assign(new Pitpass(), pitpass);
+        const pp = new Pitpass(pitpass);
 
         if (pitpass._id) {
           this.httpService.put(environment.routes.pitpass, pp)
@@ -57,6 +57,9 @@ export class PitpassService {
               error => { reject(null); }
             );
         } else {
+          delete pp._id;
+          delete pp.uid;
+
           this.httpService.post(environment.routes.pitpass, pp)
             .subscribe(
               resp => {
