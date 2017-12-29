@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ISubscription } from 'rxjs/Subscription';
 
 import { ITheme } from './itheme';
-import { Pack1722018Component } from 'app/themes/pack172-2018/pack172-2018.component';
-import { PitpassService } from 'app/pitpass/pitpass.service';
+import { ThemeService } from './theme.service';
 import { Pitpass } from 'app/pitpass/pitpass';
+import { PitpassService } from 'app/pitpass/pitpass.service';
+
 
 @Component({
   selector: 'app-themes',
@@ -12,19 +12,13 @@ import { Pitpass } from 'app/pitpass/pitpass';
   styleUrls: ['./themes.component.css']
 })
 export class ThemesComponent  {
-  private _themes: Array<ITheme>;
-
   public get pitpass(): Pitpass { return this.pitpassService.current; }
-  public get themes(): Array<ITheme> { return this._themes; }
+  public get themes(): Array<ITheme> { return this.themeService.themes; }
 
-  constructor(private pitpassService: PitpassService) {
-    this._themes = [
-      new Pack1722018Component(pitpassService)
-    ];
-  }
+  constructor(private pitpassService: PitpassService, private themeService: ThemeService) {}
 
   onSelect(theme: ITheme): void {
-    this._themes.forEach(item => {
+    this.themes.forEach(item => {
       if (theme.component === item.component) {
         theme.isSelected = true;
         this.pitpassService.current.theme = theme;

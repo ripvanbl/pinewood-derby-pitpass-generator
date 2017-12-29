@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { ITheme } from './itheme';
-import { AppModule } from 'app/app.module';
+import { PitpassService } from 'app/pitpass/pitpass.service';
+import { Pack1722018Component } from './pack172-2018/pack172-2018.component';
 
 
 @Injectable()
 export class ThemeService {
-  private _themes: ReplaySubject<ITheme>;
+  private _themes: Array<ITheme>;
 
-  public get themes() { return this._themes.asObservable(); }
+  public get themes() { return this._themes; }
 
-  constructor() {
-    this._themes = new ReplaySubject<ITheme>();
-  }
-
-  register(theme: ITheme): void {
-    this._themes.next(theme);
+  constructor(private pitpassService: PitpassService) {
+    this._themes = [
+      new Pack1722018Component(pitpassService)
+    ];
   }
 }

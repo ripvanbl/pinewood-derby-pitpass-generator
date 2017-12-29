@@ -37,6 +37,7 @@ import { ThemeService } from './themes/theme.service';
 
 // Other
 import { AppRoutingModule } from './app-routing.module';
+import { PreviewComponent } from './preview/preview.component';
 
 
 export const firebaseConfig = {
@@ -59,7 +60,8 @@ export const firebaseConfig = {
     PrintComponent,
     SaveComponent,
     ThemesComponent,
-    Pack1722018Component
+    Pack1722018Component,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,
