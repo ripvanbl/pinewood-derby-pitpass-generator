@@ -12,6 +12,7 @@ const messages = {
   ERR_NO_PITPASS_RACER: 'ERR_NO_PITPASS_RACER',
   ERR_NO_PITPASS_THEME: 'ERR_NO_PITPASS_THEME',
   ERR_NO_QUERY: 'ERR_NO_QUERY',
+  ERR_NO_THEMES: 'ERR_NO_THEMES',
   PITPASS_NOT_FOUND: 'PITPASS_NOT_FOUND',
   NO_PITPASS_QUERY_MATCH: 'NO_PITPASS_QUERY_MATCH'
 };
@@ -20,6 +21,10 @@ const messages = {
 // Module Definition
 ////////////////////////////////////////////////////////////
 
+/**
+ * Route definitions for managing pitpasses
+ * @module PitpassRouter
+ */
 module.exports = {
   create: create,
   getById: getById,
@@ -32,12 +37,11 @@ module.exports = {
 
 
 ////////////////////////////////////////////////////////////
-// Executors
+// Pitpass Executors
 ////////////////////////////////////////////////////////////
 
 /**
  * Create a pitpass.
- * @module create
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -54,7 +58,7 @@ function create(req, res) {
     return;
   }
 
-  if (!item || !item.theme) {
+  if (!item || !item.theme || !item.theme._id) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_THEME));
     return;
   }
@@ -81,7 +85,6 @@ function create(req, res) {
 
 /**
  * Get a pitpass by Id.
- * @module getById
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -105,7 +108,6 @@ function getById(req, res) {
 
 /**
  * Find pitpasses
- * @module find
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -133,7 +135,6 @@ function find(req, res) {
 
 /**
  * Update a pitpass.
- * @module update
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -150,7 +151,7 @@ function update(req, res) {
     return;
   }
 
-  if (!item || !item.theme) {
+  if (!item || !item.theme || !item.theme._id) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
     return;
   }

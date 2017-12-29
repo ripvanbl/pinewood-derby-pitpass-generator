@@ -6,6 +6,7 @@ const auth = require('../auth');
 const config = require('../config');
 const version = require('./version');
 const pitpass = require('./pitpass/pitpass.route');
+const theme = require('./pitpass/theme/theme.route');
 const PPGResponse = require('./ppg-response');
 const PPGResponseStatus = require('./ppg-response-status');
 const messages = {
@@ -20,12 +21,19 @@ module.exports = router;
  * Initializes and secures the routes (order is important)
  */
 function _initialize() {
-  // Initialize the authentication handler
+  // Initialize the authorization handler
   auth.initialize();
+
+  
+  ////////////////////////////////////////////////////////////
+  // Unauthenticated routes
+  ////////////////////////////////////////////////////////////
 
   router.get('/version', version.getVersion);
 
-  // Secure the remaining routes
+
+
+  // Secure any routes below this by checking for the proper authorization
   router.use((req, res, next) => {
     // ... except if this is development mode and a request from postman
     if (config.env === 'development' && req.headers['x-app-id'] === 'postman') {
@@ -50,6 +58,21 @@ function _initialize() {
       });
   })  
 
+
+  ////////////////////////////////////////////////////////////
+  // Pitpass Theme Routes
+  ////////////////////////////////////////////////////////////
+  
+  router.post('/pitpass/theme', theme.create);
+  router.put('/pitpass/theme', theme.update);
+  router.get('/pitpass/theme/:id', theme.getById);
+  router.get('/pitpass/theme', theme.find);
+
+
+  ////////////////////////////////////////////////////////////
+  // Pitpass Routes
+  ////////////////////////////////////////////////////////////
+  
   router.post('/pitpass', pitpass.create);
   router.put('/pitpass', pitpass.update);
   router.get('/pitpass/:id', pitpass.getById);
