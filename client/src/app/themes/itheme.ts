@@ -1,6 +1,9 @@
 export interface ITheme {
-  name: string,
-  description: string,
-  iconDataURL: string,
-  component: string
+  id: string;
+  displayName: string;
+  description: string;
+  thumbnailBackURL: string;
+  thumbnailFrontURL: string;
+  component: any;
+  isSelected: boolean;
 }

@@ -1,1 +1,5 @@
-.themes { overflow: auto; }
+.themes { list-style-type: none; }
+.selected {
+  background-color: #bbbbbb
+}
+

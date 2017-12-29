@@ -16,6 +16,7 @@ import { User } from 'app/auth/user';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private _user$: ISubscription;
+  private _pitpass$: ISubscription;
 
   public pitpasses: Array<Pitpass>;
 
@@ -29,14 +30,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this._user$ = this.authService.user.subscribe(usr => {
       if (!usr) { return; }
 
-      this.pitpassService.load(usr).subscribe(pp => {
+      this._pitpass$ = this.pitpassService.load(usr).subscribe(pp => {
         this.pitpasses = pp;
       });
     });
   }
 
   ngOnDestroy() {
-    this._user$.unsubscribe();
+    if (this._user$) {
+      this._user$.unsubscribe();
+    }
+
+    if (this._pitpass$) {
+      this._pitpass$.unsubscribe();
+    }
   }
 
   newPitpass(): void {

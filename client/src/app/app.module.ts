@@ -15,24 +15,28 @@ import { MdGridListModule,
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Components
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { InfoComponent } from './info/info.component';
 import { IntroComponent } from './intro/intro.component';
-import { PhotoComponent } from './photo/photo.component';
-import { ThemesComponent } from './themes/themes.component';
 import { Pack1722018Component } from './themes/pack172-2018/pack172-2018.component';
+import { PhotoComponent } from './photo/photo.component';
+import { PitpassComponent } from './pitpass/pitpass.component';
+import { PrintComponent } from './print/print.component';
+import { ThemesComponent } from './themes/themes.component';
+import { SaveComponent } from './save/save.component';
 
+// Services
 import { AuthService } from './auth/auth.service';
 import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
+import { HttpService } from './network/http.service';
 import { PitpassService } from './pitpass/pitpass.service';
 import { StorageService } from './storage/storage.service';
-import { HttpService } from './network/http.service';
+import { ThemeService } from './themes/theme.service';
 
+// Other
 import { AppRoutingModule } from './app-routing.module';
-import { PrintComponent } from './print/print.component';
-import { SaveComponent } from './save/save.component';
-import { PitpassComponent } from './pitpass/pitpass.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 export const firebaseConfig = {
@@ -47,15 +51,15 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     InfoComponent,
-    PhotoComponent,
     IntroComponent,
-    ThemesComponent,
-    Pack1722018Component,
+    PhotoComponent,
+    PitpassComponent,
     PrintComponent,
     SaveComponent,
-    PitpassComponent,
-    DashboardComponent
+    ThemesComponent,
+    Pack1722018Component
   ],
   imports: [
     BrowserModule,
@@ -78,10 +82,14 @@ export const firebaseConfig = {
   providers: [
     AuthService,
     CanActivateViaAuthGuard,
+    HttpService,
     PitpassService,
     StorageService,
-    HttpService
+    ThemeService
+  ],
+  entryComponents: [
+    Pack1722018Component
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
