@@ -22,7 +22,6 @@ import { InfoComponent } from './info/info.component';
 import { IntroComponent } from './intro/intro.component';
 import { Pack1722018Component } from './themes/pack172-2018/pack172-2018.component';
 import { PhotoComponent } from './photo/photo.component';
-import { PitpassComponent } from './pitpass/pitpass.component';
 import { PrintComponent } from './print/print.component';
 import { ThemesComponent } from './themes/themes.component';
 import { SaveComponent } from './save/save.component';
@@ -56,7 +55,6 @@ export const firebaseConfig = {
     InfoComponent,
     IntroComponent,
     PhotoComponent,
-    PitpassComponent,
     PrintComponent,
     SaveComponent,
     ThemesComponent,
