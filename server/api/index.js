@@ -6,7 +6,6 @@ const auth = require('../auth');
 const config = require('../config');
 const version = require('./version');
 const pitpass = require('./pitpass/pitpass.route');
-const theme = require('./pitpass/theme/theme.route');
 const PPGResponse = require('./ppg-response');
 const PPGResponseStatus = require('./ppg-response-status');
 const messages = {
@@ -57,16 +56,6 @@ function _initialize() {
         res.status(403).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_AUTH_INVALID_USER));
       });
   })  
-
-
-  ////////////////////////////////////////////////////////////
-  // Pitpass Theme Routes
-  ////////////////////////////////////////////////////////////
-  
-  router.post('/pitpass/theme', theme.create);
-  router.put('/pitpass/theme', theme.update);
-  router.get('/pitpass/theme/:id', theme.getById);
-  router.get('/pitpass/theme', theme.find);
 
 
   ////////////////////////////////////////////////////////////

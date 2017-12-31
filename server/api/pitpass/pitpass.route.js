@@ -58,9 +58,19 @@ function create(req, res) {
     return;
   }
 
-  if (!item || !item.theme || !item.theme._id) {
+  if (!item || !item.theme) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_THEME));
     return;
+  }
+
+  // Mutate the theme to just store the id, not the entire object
+  if (typeof(item.theme) === 'object') {
+    if (!item.theme.id) {
+      res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+      return;
+    }
+
+    item.theme = item.theme.id;
   }
   
   const model = new Pitpass(item);
@@ -151,9 +161,19 @@ function update(req, res) {
     return;
   }
 
-  if (!item || !item.theme || !item.theme._id) {
+  if (!item || !item.theme) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
     return;
+  }
+
+  // Mutate the theme to just store the id, not the entire object
+  if (typeof (item.theme) === 'object') {
+    if (!item.theme.id) {
+      res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+      return;
+    }
+
+    item.theme = item.theme.id;
   }
 
   Pitpass.findById(item._id)
@@ -162,8 +182,8 @@ function update(req, res) {
         throw new Error(`Invalid Pitpass Id ${item.id}`);
       }
 
+      model.theme = item.theme;
       Object.assign(model.racer, item.racer);
-      Object.assign(model.theme, item.theme);
 
       return model;
     })

@@ -50,9 +50,9 @@ const PitpassSchema = new mongoose.Schema(
       required: true
     },
     theme: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Theme',
-      required: true
+      type: String,
+      required: true,
+      trim: true
     }
   }
 );
