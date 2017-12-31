@@ -83,6 +83,7 @@ export class InfoComponent implements OnInit {
 
     // Patch the racer
     Object.assign(this.pitpass.racer, model);
+    this.pitpassService.updateCurrent(this.pitpass);
     this.onRacerSaved.emit();
     this.router.navigate(['/theme']);
     this.isProcessing = false;

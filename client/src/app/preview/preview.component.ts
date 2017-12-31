@@ -8,11 +8,14 @@ import { Pitpass } from 'app/pitpass/pitpass';
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-  public get pitpass(): Pitpass {
-    return this.pitpassService.current;
-  }
+  public get pitpass(): Pitpass { return this.pitpassService.current; }
+  public inputs: any;
 
-  constructor(private pitpassService: PitpassService) { }
+  constructor(private pitpassService: PitpassService) {
+    this.inputs = {
+      pitpass: this.pitpass
+    };
+  }
 
   ngOnInit() {
   }

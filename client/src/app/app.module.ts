@@ -14,6 +14,7 @@ import { MdGridListModule,
   MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { DynamicModule } from 'ng-dynamic-component';
 
 // Components
 import { AppComponent } from './app.component';
@@ -77,7 +78,8 @@ export const firebaseConfig = {
     MdProgressSpinnerModule,
     MdSelectModule,
     MdToolbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DynamicModule.withComponents([Pack1722018Component])
   ],
   providers: [
     AuthService,

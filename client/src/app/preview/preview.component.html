@@ -6,7 +6,7 @@
     </md-card-subtitle>
   </md-card-header>
   <md-card-content>
-    <ng-container *ngComponentOutlet="pitpass.theme.component"></ng-container>
+    <ng-container [ngComponentOutlet]="pitpass.theme.component" [ndcDynamicInputs]="inputs"></ng-container>
   </md-card-content>
   <md-card-actions>
     <a md-button [routerLink]="['/theme']">BACK</a>

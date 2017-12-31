@@ -1,3 +1,5 @@
+import { Racer } from 'app/racer/racer';
+
 export interface ITheme {
   id: string;
   displayName: string;
