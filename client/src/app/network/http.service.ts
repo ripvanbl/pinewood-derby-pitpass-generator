@@ -23,7 +23,7 @@ export class HttpService {
       .flatMap(token => {
         return this.ngCoreHttp.get(`${this.baseUrl}${endpoint}`, this.generateHeaders(token))
           .map((response: Response) => {
-            return this.handleResponse(response);
+            return this.handleResponse(response).data;
           });
       });
   }
@@ -35,7 +35,7 @@ export class HttpService {
       .flatMap(token => {
         return this.ngCoreHttp.put(`${this.baseUrl}${endpoint}`, JSON.stringify(data), this.generateHeaders(token))
           .map((response: Response) => {
-            return this.handleResponse(response);
+            return this.handleResponse(response).data;
           });
       });
   }
@@ -47,7 +47,7 @@ export class HttpService {
       .flatMap(token => {
         return this.ngCoreHttp.post(`${this.baseUrl}${endpoint}`, data, this.generateHeaders(token))
           .map((response: Response) => {
-            return this.handleResponse(response);
+            return this.handleResponse(response).data;
           });
       });
   }
@@ -59,7 +59,7 @@ export class HttpService {
       .flatMap(token => {
         return this.ngCoreHttp.delete(`${this.baseUrl}${endpoint}`, this.generateHeaders(token))
           .map((response: Response) => {
-            return this.handleResponse(response);
+            return this.handleResponse(response).data;
           });
       });
   }
@@ -75,9 +75,11 @@ export class HttpService {
 
   private handleResponse(response: Response) {
     if (response) {
-      return (response.text()) ? response.json() : {};
+      return (response.text()) ? response.json() : { data: null };
     }
 
-    return {};
+    return {
+      data: null
+    };
   }
 }

@@ -6,8 +6,9 @@ import { StorageService } from 'app/storage/storage.service';
 import { ThemeService } from 'app/themes/theme.service';
 import { User } from 'app/auth/user';
 import { Pitpass } from 'app/pitpass/pitpass';
-import { environment } from 'environments/environment';
 import { Racer } from 'app/racer/racer';
+import { environment } from 'environments/environment';
+
 
 @Injectable()
 export class PitpassService {
@@ -33,7 +34,12 @@ export class PitpassService {
       if (!this._pitpasses.length) {
         this.httpService.get(endpoint)
           .subscribe(res => {
-            this._pitpasses = res.data;
+            if (res && res.length) {
+              this._pitpasses = res.map(item => {
+                return new Pitpass().fromDTO(item, this.themeService.themes);
+              });
+            }
+
             observer.next(this._pitpasses);
           });
       } else {
