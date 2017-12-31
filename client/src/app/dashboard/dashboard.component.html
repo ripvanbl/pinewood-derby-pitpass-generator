@@ -6,11 +6,15 @@
     </md-card-subtitle>
   </md-card-header>
   <md-card-content>
-    <md-grid-list cols="2" rowHeight="2:1">
-      <md-grid-tile *ngFor="let pitpass of pitpasses">
-        {{pitpass.firstname}} {{pitpass.lastname}}
-      </md-grid-tile>
-    </md-grid-list>
+    <ul>
+      <li *ngFor="let pitpass of pitpasses">
+        <div>
+          <img [src]="pitpass.theme.thumbnailFrontURL" height="100" [title]="pitpass.theme.displayName" />
+          <img [src]="pitpass.theme.thumbnailBackURL" height="100" [title]="pitpass.theme.displayName" />
+        </div>
+        <p>{{pitpass.racer.firstname}} {{pitpass.racer.lastname}}</p>
+      </li>
+    </ul>
   </md-card-content>
   <md-card-actions>
     <button md-button (click)="newPitpass()">NEW</button>
