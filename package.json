@@ -9,6 +9,7 @@
   "author": "Brandon Lind <linddeveloper@gmail.com>",
   "scripts": {
     "start": "node ./server/server.js",
+    "debug": "nodemon ./server/server.js",
     "postinstall": "(cd ./client && npm i && npm run build_prod)"
   },
   "dependencies": {
@@ -19,6 +20,9 @@
     "mongoose": "4.13.7",
     "mongoose-string-query": "0.2.5",
     "mongoose-timestamp": "0.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.1"
   },
   "engines": {
     "node": "8.9.4",
