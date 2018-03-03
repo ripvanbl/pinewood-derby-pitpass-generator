@@ -14,23 +14,30 @@ import { MdGridListModule,
   MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { DynamicModule } from 'ng-dynamic-component';
 
+// Components
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { InfoComponent } from './info/info.component';
 import { IntroComponent } from './intro/intro.component';
-import { PhotoComponent } from './photo/photo.component';
-import { ThemesComponent } from './themes/themes.component';
 import { Pack1722018Component } from './themes/pack172-2018/pack172-2018.component';
+import { PhotoComponent } from './photo/photo.component';
+import { PrintComponent } from './print/print.component';
+import { ThemesComponent } from './themes/themes.component';
+import { SaveComponent } from './save/save.component';
 
+// Services
 import { AuthService } from './auth/auth.service';
 import { CanActivateViaAuthGuard } from './auth/auth.routeguard';
-import { RacerService } from './racer/racer.service';
-import { StorageService } from './storage/storage.service';
 import { HttpService } from './network/http.service';
+import { PitpassService } from './pitpass/pitpass.service';
+import { StorageService } from './storage/storage.service';
+import { ThemeService } from './themes/theme.service';
 
+// Other
 import { AppRoutingModule } from './app-routing.module';
-import { PrintComponent } from './print/print.component';
-import { SaveComponent } from './save/save.component';
+import { PreviewComponent } from './preview/preview.component';
 
 
 export const firebaseConfig = {
@@ -45,13 +52,15 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     InfoComponent,
-    PhotoComponent,
     IntroComponent,
+    PhotoComponent,
+    PrintComponent,
+    SaveComponent,
     ThemesComponent,
     Pack1722018Component,
-    PrintComponent,
-    SaveComponent
+    PreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -69,15 +78,20 @@ export const firebaseConfig = {
     MdProgressSpinnerModule,
     MdSelectModule,
     MdToolbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DynamicModule.withComponents([Pack1722018Component])
   ],
   providers: [
     AuthService,
     CanActivateViaAuthGuard,
-    RacerService,
+    HttpService,
+    PitpassService,
     StorageService,
-    HttpService
+    ThemeService
+  ],
+  entryComponents: [
+    Pack1722018Component
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

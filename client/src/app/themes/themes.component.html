@@ -6,13 +6,26 @@
     </md-card-subtitle>
   </md-card-header>
   <md-card-content>
-    <div class="themes" id="themes">
-      <app-pack172-2018></app-pack172-2018>
-    </div>
+    <ul class="themes" id="themes">
+      <li *ngFor="let theme of themes">
+        <md-card [ngClass]="{'selected': theme.isSelected}">
+          <md-card-header>
+            <md-card-title>{{theme.displayName}}</md-card-title>
+            <md-card-subtitle>{{theme.description}}</md-card-subtitle>
+          </md-card-header>
+          <md-card-content>
+            <img [src]="theme.thumbnailFrontURL" height="100" />
+            <img [src]="theme.thumbnailBackURL" height="100" />
+          </md-card-content>
+          <md-card-actions>
+            <button md-button *ngIf="!theme.isSelected" (click)="onSelect(theme)">SELECT</button>
+          </md-card-actions>
+        </md-card>
+      </li>
+    </ul>
   </md-card-content>
   <md-card-actions>
     <a md-button [routerLink]="['/info']">BACK</a>
-    <app-print></app-print>
-    <app-save></app-save>
+    <a md-button [routerLink]="['/preview']" [disabled]="!pitpass.theme">NEXT</a>
   </md-card-actions>
 </md-card>

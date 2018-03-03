@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-header>
+    <md-card-title>Preview</md-card-title>
+    <md-card-subtitle>
+      If you're happy with your pitpass, you can either print it now, or save it to your profile if you're logged in.
+    </md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <ng-container [ngComponentOutlet]="pitpass.theme.component" [ndcDynamicInputs]="inputs"></ng-container>
+  </md-card-content>
+  <md-card-actions>
+    <a md-button [routerLink]="['/theme']">BACK</a>
+    <app-print></app-print>
+    <app-save></app-save>
+  </md-card-actions>
+</md-card>

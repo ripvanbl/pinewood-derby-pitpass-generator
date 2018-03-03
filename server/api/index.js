@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
+const config = require('../config');
 const version = require('./version');
 const pitpass = require('./pitpass/pitpass.route');
 const PPGResponse = require('./ppg-response');
@@ -19,13 +20,26 @@ module.exports = router;
  * Initializes and secures the routes (order is important)
  */
 function _initialize() {
-  // Initialize the authentication handler
+  // Initialize the authorization handler
   auth.initialize();
+
+  
+  ////////////////////////////////////////////////////////////
+  // Unauthenticated routes
+  ////////////////////////////////////////////////////////////
 
   router.get('/version', version.getVersion);
 
-  // Secure the remaining routes
+
+
+  // Secure any routes below this by checking for the proper authorization
   router.use((req, res, next) => {
+    // ... except if this is development mode and a request from postman
+    if (config.env === 'development' && req.headers['x-app-id'] === 'postman') {
+      req.uid = 'development';
+      return next(); 
+    }
+
     if (!req.headers.authorization || req.headers.authorization.length < 8) {
       return res.status(401).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_AUTH_TOKEN));
     }
@@ -43,6 +57,11 @@ function _initialize() {
       });
   })  
 
+
+  ////////////////////////////////////////////////////////////
+  // Pitpass Routes
+  ////////////////////////////////////////////////////////////
+  
   router.post('/pitpass', pitpass.create);
   router.put('/pitpass', pitpass.update);
   router.get('/pitpass/:id', pitpass.getById);

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-import { AuthService } from '../auth/auth.service';
-import { User } from '../auth/user.model';
-
-import { RacerService } from '../racer/racer.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { AuthService } from 'app/auth/auth.service';
+import { PitpassService } from 'app/pitpass/pitpass.service';
+import { User } from 'app/auth/user';
+
 
 @Component({
   selector: 'app-save',
@@ -15,13 +15,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class SaveComponent implements OnInit {
   public user: BehaviorSubject<User>;
 
-  constructor(private authService: AuthService, private racerService: RacerService) { }
+  constructor(private authService: AuthService, private pitpassService: PitpassService) { }
 
   ngOnInit() {
     this.user = this.authService.user;
   }
 
   save(): void {
-    this.racerService.saveToProfile(this.user.getValue());
+    this.pitpassService.save(this.pitpassService.current);
   }
 }

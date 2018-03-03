@@ -1,40 +1,36 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/last';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import { User } from './user.model';
-import { StorageService } from '../storage/storage.service';
+import { User } from './user';
+import { StorageService } from 'app/storage/storage.service';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-  private USER_KEY = 'user';
-  private _loggedIn = false;
-  private _user$: Subscription = null;
+  private _isLoggedIn = new ReplaySubject<boolean>();
   private _authState$: Subscription = null;
 
   public user: BehaviorSubject<User>;
+  public get isLoggedIn() { return this._isLoggedIn.asObservable(); }
 
   constructor(private afAuth: AngularFireAuth, private storage: StorageService) {
     this.user = new BehaviorSubject<User>(null);
 
-    this._authState$ = this.afAuth.authState.subscribe((usr) => { this._setAuthState(usr); });
-
-    const storedUser = this.storage.getItem(this.USER_KEY);
-
-    if (storedUser) {
-      this.user.next(storedUser);
-    }
+    this._authState$ = this.afAuth.authState.subscribe(firebaseUser => { this._setAuthState(firebaseUser); });
   }
 
   ngOnDestroy() {
-    this._user$.unsubscribe();
     this._authState$.unsubscribe();
   }
 
   getUserIdToken(): Promise<string> {
+    if (!firebase.auth().currentUser) {
+      return Promise.reject('No current user');
+    }
+
     return new Promise((resolve, reject) => {
       firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
         .then((idToken) => {
@@ -43,10 +39,6 @@ export class AuthService implements OnDestroy {
           reject(error);
         });
     });
-  }
-
-  isLoggedIn(): boolean {
-    return this._loggedIn;
   }
 
   login(): void {
@@ -72,16 +64,14 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  _setAuthState(result): void {
-    if (!result) {
-      this._loggedIn = false;
+  _setAuthState(user): void {
+    if (!user || !user.uid) {
+      this._isLoggedIn.next(false);
       return;
     }
 
-    const usr = new User(result);
-    this.storage.setItem(this.USER_KEY, usr);
+    const usr = new User(user);
     this.user.next(usr);
-
-    this._loggedIn = usr.uid ? true : false;
+    this._isLoggedIn.next(true);
   }
 }

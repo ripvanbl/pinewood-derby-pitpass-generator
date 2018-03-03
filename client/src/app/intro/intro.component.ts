@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthService } from '../auth/auth.service';
-import { User } from '../auth/user.model';
+import { AuthService } from 'app/auth/auth.service';
+import { User } from 'app/auth/user';
 
 @Component({
   selector: 'app-intro',

@@ -14,7 +14,7 @@ body {
   padding: 0;
 }
 
-app-root { display:block; margin:0px auto; max-width: 632px; }
+app-root { display:block; margin:0px auto; min-width: 300px; max-width: 632px; }
 app-info { margin: 20px 0 20px 0; }
 .fill-remaining-space { flex: 1 1 auto; }
 form { display:block; padding: 0 0 0 8px; }

@@ -8,6 +8,36 @@ const mongooseTimestamp = require('mongoose-timestamp');
 // Module Definition
 ////////////////////////////////////////////////////////////
 
+const RacerSchema = new mongoose.Schema({
+  _id: false,
+  firstname: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  carname: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  rank: {
+    type: String,
+    required: false,
+    enum: ['Tiger', 'Wolf', 'Bear', 'Webelos', 'Arrow of Light']
+  },
+  profilePhotoDataURL: {
+    type: String,
+    required: false,
+    trim: true,
+    default: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+  }
+});
+
 const PitpassSchema = new mongoose.Schema(
   {
     uid: {
@@ -15,31 +45,14 @@ const PitpassSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-    firstname: {
-      type: String,
-      required: true,
-      trim: true,
+    racer: {
+      type: RacerSchema,
+      required: true
     },
-    lastname: {
+    theme: {
       type: String,
       required: true,
       trim: true
-    },
-    carname: {
-      type: String,
-      required: false,
-      trim: true
-    },
-    rank: {
-      type: String,
-      required: false,
-      enum: ['Tiger', 'Wolf', 'Bear', 'Webelos', 'Arrow of Light']
-    },
-    profilePhotoDataURL: {
-      type: String,
-      required: false,
-      trim: true,
-      default: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
     }
   }
 );

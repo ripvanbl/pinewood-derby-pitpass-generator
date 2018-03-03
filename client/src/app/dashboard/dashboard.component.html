@@ -1,0 +1,22 @@
+<md-card>
+  <md-card-header>
+    <md-card-title>Dashboard</md-card-title>
+    <md-card-subtitle>
+      Not much here at the moment, but you can view, edit or delete your pitpasses.
+    </md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <ul>
+      <li *ngFor="let pitpass of pitpasses">
+        <div>
+          <img [src]="pitpass.theme.thumbnailFrontURL" height="100" [title]="pitpass.theme.displayName" />
+          <img [src]="pitpass.theme.thumbnailBackURL" height="100" [title]="pitpass.theme.displayName" />
+        </div>
+        <p>{{pitpass.racer.firstname}} {{pitpass.racer.lastname}}</p>
+      </li>
+    </ul>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="newPitpass()">NEW</button>
+  </md-card-actions>
+</md-card>

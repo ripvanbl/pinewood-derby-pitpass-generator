@@ -9,7 +9,10 @@ const messages = {
   ERR_PITPASS_VALIDATION_FAILED: 'ERR_PITPASS_VALIDATION_FAILED',
   ERR_SAVE_PITPASS_FAILED: 'ERR_SAVE_PITPASS_FAILED',
   ERR_NO_PITPASS_ID: 'ERR_NO_PITPASS_ID',
+  ERR_NO_PITPASS_RACER: 'ERR_NO_PITPASS_RACER',
+  ERR_NO_PITPASS_THEME: 'ERR_NO_PITPASS_THEME',
   ERR_NO_QUERY: 'ERR_NO_QUERY',
+  ERR_NO_THEMES: 'ERR_NO_THEMES',
   PITPASS_NOT_FOUND: 'PITPASS_NOT_FOUND',
   NO_PITPASS_QUERY_MATCH: 'NO_PITPASS_QUERY_MATCH'
 };
@@ -18,6 +21,10 @@ const messages = {
 // Module Definition
 ////////////////////////////////////////////////////////////
 
+/**
+ * Route definitions for managing pitpasses
+ * @module PitpassRouter
+ */
 module.exports = {
   create: create,
   getById: getById,
@@ -30,22 +37,42 @@ module.exports = {
 
 
 ////////////////////////////////////////////////////////////
-// Executors
+// Pitpass Executors
 ////////////////////////////////////////////////////////////
 
 /**
  * Create a pitpass.
- * @module create
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
 function create(req, res) {
-  if (!req.body) {
+  const item = req.body;
+
+  if (!item) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS));
     return;
   }
 
-  const item = req.body;
+  if (!item || !item.racer) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_RACER));
+    return;
+  }
+
+  if (!item || !item.theme) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, data, messages.ERR_NO_PITPASS_THEME));
+    return;
+  }
+
+  // Mutate the theme to just store the id, not the entire object
+  if (typeof(item.theme) === 'object') {
+    if (!item.theme.id) {
+      res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+      return;
+    }
+
+    item.theme = item.theme.id;
+  }
+  
   const model = new Pitpass(item);
 
   model.uid = req.uid;
@@ -68,7 +95,6 @@ function create(req, res) {
 
 /**
  * Get a pitpass by Id.
- * @module getById
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -92,7 +118,6 @@ function getById(req, res) {
 
 /**
  * Find pitpasses
- * @module find
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
@@ -102,40 +127,65 @@ function find(req, res) {
     return;
   }
 
-  Pitpass.apiQuery(req.query)
-    .exec()
-    .then((doc) => {
-      res.json(new PPGResponse(PPGResponseStatus.OK, doc));
-    })
-    .catch((err) => {
-      console.info(`find pitpass error: ${err}`);
-      res.status(404).json(new PPGResponse(PPGResponseStatus.WARN, null, messages.NO_PITPASS_QUERY_MATCH));
-    });
+  try {
+    Pitpass.apiQuery(req.query)
+      .exec()
+      .then((doc) => {
+        res.json(new PPGResponse(PPGResponseStatus.OK, doc));
+      })
+      .catch((err) => {
+        console.info(`find pitpass error: ${err}`);
+        res.status(404).json(new PPGResponse(PPGResponseStatus.WARN, null, messages.NO_PITPASS_QUERY_MATCH));
+      });
+  } catch (err) {
+    console.warn(`find pitpass apiQuery: ${err}`);
+    res.status(404).json(new PPGResponse(PPGResponseStatus.WARN, null, messages.NO_PITPASS_QUERY_MATCH));
+  }
 }
 
 /**
  * Update a pitpass.
- * @module update
  * @param {object} req - The node request
  * @param {object} res - The node response
  */
 function update(req, res) {
-  if (!req.body || !req.body._id) {
+  const item = req.body;
+
+  if (!item || !item._id) {
     res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_ID));
     return;
   }
 
-  const item = req.body;
+  if (!item || !item.racer) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_RACER));
+    return;
+  }
+
+  if (!item || !item.theme) {
+    res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+    return;
+  }
+
+  // Mutate the theme to just store the id, not the entire object
+  if (typeof (item.theme) === 'object') {
+    if (!item.theme.id) {
+      res.status(400).json(new PPGResponse(PPGResponseStatus.ERROR, null, messages.ERR_NO_PITPASS_THEME));
+      return;
+    }
+
+    item.theme = item.theme.id;
+  }
 
   Pitpass.findById(item._id)
     .then((model) => {
-      return Object.assign(model, {
-        firstname: item.firstname,
-        lastname: item.lastname,
-        carname: item.carname,
-        rank: item.rank,
-        profilePhotoDataURL: item.profilePhotoDataURL
-      });
+      if (!model) {
+        throw new Error(`Invalid Pitpass Id ${item.id}`);
+      }
+
+      model.theme = item.theme;
+      Object.assign(model.racer, item.racer);
+
+      return model;
     })
     .then((model) => {
       return model.save();

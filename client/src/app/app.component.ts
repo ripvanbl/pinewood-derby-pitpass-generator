@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { User } from './auth/user.model';
-import { AuthService } from './auth/auth.service';
+import { ISubscription } from 'rxjs/Subscription';
+
+import { User } from 'app/auth/user';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +11,23 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private userSubscription: Subscription;
+  private user$: ISubscription;
+  private router$: ISubscription;
 
-  title = 'Pitpass Generator';
-  user: User;
+  public title = 'Pitpass Generator';
+  public user: User;
 
   constructor(public authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.user.subscribe(value => {
+    this.user$ = this.authService.user.subscribe(value => {
       this.user = value;
       this.changeDetectorRef.detectChanges();
     });
 
-    this.router.events.subscribe((evt) => {
+    this.router$ = this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
@@ -36,7 +38,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.userSubscription.unsubscribe();
+    this.user$.unsubscribe();
+    this.router$.unsubscribe();
   }
 
   login() {
@@ -44,6 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.logout()
+      .then(() => {
+        this.router.navigate(['/']);
+      })
+      .catch(() => {
+        this.router.navigate(['/']);
+      });
   }
 }
