@@ -13,19 +13,19 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "4.4.3",
+    "@angular/animations": "5.2.7",
     "@angular/cdk": "2.0.0-beta.10",
-    "@angular/cli": "1.6.2",
-    "@angular/common": "4.4.3",
-    "@angular/compiler": "4.4.3",
-    "@angular/compiler-cli": "4.4.3",
-    "@angular/core": "4.4.3",
-    "@angular/forms": "4.4.3",
-    "@angular/http": "4.4.3",
+    "@angular/cli": "1.7.2",
+    "@angular/common": "5.2.7",
+    "@angular/compiler": "5.2.7",
+    "@angular/compiler-cli": "5.2.7",
+    "@angular/core": "5.2.7",
+    "@angular/forms": "5.2.7",
+    "@angular/http": "5.2.7",
     "@angular/material": "2.0.0-beta.10",
-    "@angular/platform-browser": "4.4.3",
-    "@angular/platform-browser-dynamic": "4.4.3",
-    "@angular/router": "4.4.3",
+    "@angular/platform-browser": "5.2.7",
+    "@angular/platform-browser-dynamic": "5.2.7",
+    "@angular/router": "5.2.7",
     "@types/jspdf": "1.1.31",
     "angularfire2": "5.0.0-rc.2",
     "core-js": "2.5.1",
@@ -36,9 +36,9 @@
     "ng-dynamic-component": "1.1.0",
     "promise-polyfill": "6.0.2",
     "rasterizehtml": "1.2.4",
-    "rxjs": "5.5.5",
-    "typescript": "2.5.2",
-    "zone.js": "0.8.17"
+    "rxjs": "5.5.6",
+    "typescript": "2.6.2",
+    "zone.js": "0.8.20"
   },
   "devDependencies": {
     "@types/jasmine": "2.6.0",
@@ -56,5 +56,9 @@
     "protractor": "5.1.2",
     "ts-node": "3.3.0",
     "tslint": "5.7.0"
+  },
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
   }
 }
